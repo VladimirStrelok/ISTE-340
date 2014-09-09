@@ -4,7 +4,7 @@ Project 1
 
 ## Data sets
 ### Favorite Football Player
-* AFC
+#### AFC
   * East
     * Buffalo Bills
      - Ron Brooks
@@ -19,7 +19,7 @@ Project 1
     * Denver Broncos
      - Peyton Manning
      - Demaryius Thomas
-* NFC
+#### NFC
   * East
     * New York Giants
      - Eli Manning
