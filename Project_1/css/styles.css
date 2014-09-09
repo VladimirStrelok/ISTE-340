@@ -1,0 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+html,
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+header,
+nav {
+  display: inline-block;
+}
+header {
+  padding: 5px;
+  color: #fff;
+  width: 100%;
+  background-color: #4D0100;
+}
+header span {
+  font-size: 125%;
+  display: inline;
+}
+header nav a {
+  padding: 15px 10px;
+}

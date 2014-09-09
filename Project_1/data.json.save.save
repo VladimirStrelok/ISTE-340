@@ -1,0 +1,40 @@
+{
+ "football":{
+  "AFC":{
+   "East":{
+    "Buffalo Bills":{
+      "Ron Brooks",
+      "Bryce Brown"
+    },
+    "New York Jets",:{
+     "Michael Vick",
+     "Chris Johnson"
+   },
+   "West":{
+    "Kansas City Chiefs":{
+     "Jamaal Charles",
+     "Alex Smith"
+    },
+    "Denver Broncos":{
+     "Peyton Manning",
+     Demaryius Thomas
+   }
+  },
+  "NFC":{
+   "East":{
+New York Giants
+Eli Manning
+Victor Cruz
+Philadelphia Eagles
+Nick Foles
+Lesean McCoyNew York Giants
+Eli Manning
+Victor Cruz
+Philadelphia Eagles
+Nick Foles
+Lesean McCoy
+   },
+   "West":{}
+  }
+ }
+}
