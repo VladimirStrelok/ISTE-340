@@ -1,1 +1,1 @@
-lessc less/style.less css/style.css
+lessc less/styles.less css/styles.css
