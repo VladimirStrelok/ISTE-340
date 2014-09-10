@@ -9,8 +9,10 @@
     var jsonData, activeDatasetName, activeDataset;
     
     activeDatasetName = 'football';
+    
     // functions
-    var getData, setUp;
+    var getData, setUp, createSelect, selectChange;
+  
     getData = function(){
       var request, response;
       request = new XMLHttpRequest();
@@ -28,17 +30,40 @@
       request.send();
     }
     setUp = function(datasetName){
+      while(document.forms[0].firstChild){
+        document.forms[0].removeChild(document.forms[0].firstChild);
+      }
       activeDataset = jsonData[datasetName];
       console.log(activeDataset);
+      createSelect(activeDataset);
+    }
+    createSelect = function(data){
       var element=document.createElement("select");
-      for(var i=0, l=Object.keys(activeDataset).length; i < l; i++){
-       var child = document.createElement('option');
-       var text = document.createTextNode(Object.keys(activeDataset)[i]);
-       child.setAttribute('value', activeDataset(Object.keys(activeDataset)[i]));
-       child.appendChild(text);
-       element.appendChild(child);
+      var firstChild =  document.createElement("option");
+      var firstChildText = document.createTextNode("Choose an Option");
+      firstChild.appendChild(firstChildText);
+      firstChild.setAttribute("disabled", true)
+      firstChild.setAttribute("selected", true)
+      element.appendChild(firstChild);
+      var keys = Object.keys(data);
+      for(var i=0, l=keys.length; i < l; i++){
+        var key = keys[i];
+        var child = document.createElement('option');
+        var text = document.createTextNode(data[key].value);
+        child.setAttribute('value',key)
+        child.appendChild(text);
+        element.appendChild(child);
       }
-      document.forms[0].appendChild(element);
+      element.setAttribute('onchange','selectChange()');
+      document.forms[0].appendChild(element);     
+    }
+    selectChange = function(){
+      var currentNode = this.parent.firstChild;
+      while(currentNode != this.parent.lastChild)
+      {
+        console.log(currentNode);
+        currentNode = currentNode.nextSibling;
+      }
     }
     getData();
   </script>
@@ -47,11 +72,11 @@
   <header>
    <span>Data Sets</span>
    <nav>
-    <a>Football</a>
+    <a onclick="setUp('football'); this.classname='active';">Football</a>
    </nav>
   </header>
   <main>
-      <button>Reset</button>
+      <button onclick="setUp(activeDatasetName)">Reset</button>
       <button>Print</button>
       <form>
       </form>
