@@ -66,9 +66,15 @@
     }
     activeDataset = jsonData[activeDatasetName];
     document.getElementById(activeDatasetName).setAttribute('class','active')
-    document.forms[0].appendChild(createSelect(activeDataset));
-    document.forms[0].firstChild.style.opacity = 1;
-    document.getElementById('category').textContent = activeDataset.value;
+    var initial = createSelect(activeDataset)
+    document.forms[0].appendChild(initial);
+    initial.style.opacity = 0;
+    window.getComputedStyle(initial).opacity;
+    // Fade it in.
+    initial.style.opacity = 1;
+
+    var category = document.getElementById('category');
+    category.textContent = activeDataset.value;
   }
   createSelect = function(data){
     if(data.children){
@@ -107,9 +113,9 @@
     if(nextChild){
       document.forms[0].appendChild(nextChild);
       nextChild.style.opacity = 0;
-      for (var i=1;i<=10;i++) {
-        nextChild.style.opacity = i/10;
-      }
+      window.getComputedStyle(nextChild).opacity;
+      // Fade it in.
+      nextChild.style.opacity = 1;
     }
   }
   generateNav = function(){

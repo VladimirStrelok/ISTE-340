@@ -63,6 +63,16 @@ main button:active {
 }
 main select {
   margin: 5px 10px;
-  display: block;
+  display: inline-block;
   padding: 10px;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+main #category {
+  -webkit-transition: content 500ms;
+  -moz-transition: content 500ms;
+  -o-transition: content 500ms;
+  transition: content 500ms;
 }
