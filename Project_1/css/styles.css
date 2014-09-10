@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 html,
 body {
   margin: 0;
@@ -26,34 +26,40 @@ header nav span {
   padding: 20px 10px;
   font-size: 125%;
   display: inline;
+  width: 40%;
+  font-weight: 700;
 }
 header nav a {
   padding: 15px 10px;
   background-color: #23a38f;
   display: inline-block;
-  border: solid 1px #ccc;
   transition: background-color 0.2s, color 0.2s;
+  border: solid 1px #2e313d;
 }
 header nav a.active {
   background-color: #b9260e;
 }
+header nav a + a {
+  border-left: 0px;
+}
 main {
   display: block;
   width: 900px;
-  margin: 0 auto;
+  margin: 0 20%;
 }
 main button {
-  background-color: #5a6077;
+  background-color: #2e313d;
   padding: 10px 15px;
   margin: 5px 10px;
   color: #f0563d;
   border: none;
+  font-weight: 700;
 }
 main button:hover {
-  background-color: #44485a;
+  background-color: #5a6077;
 }
 main button:active {
-  background-color: #2e313d;
+  background-color: #020203;
 }
 main select {
   margin: 5px 10px;
