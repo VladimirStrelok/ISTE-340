@@ -8,10 +8,10 @@ body {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  width: 100%;
 }
 header,
-nav,
-main {
+nav {
   display: inline-block;
 }
 header {
@@ -32,4 +32,27 @@ header nav a {
 header nav a.active {
   background-color: #ffffff;
   color: #000000;
+}
+main {
+  display: block;
+  width: 900px;
+  margin: 0 auto;
+}
+main button {
+  background-color: #f20300;
+  padding: 10px 15px;
+  margin: 5px 10px;
+  color: #ffffff;
+  border: none;
+}
+main button:hover {
+  background-color: #bf0300;
+}
+main button:active {
+  background-color: #8c0200;
+}
+main select {
+  margin: 5px 10px;
+  display: block;
+  padding: 10px;
 }

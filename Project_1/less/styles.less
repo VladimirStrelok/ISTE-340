@@ -16,11 +16,11 @@ html,body{
  font-size: 100%;
  font: inherit;
  vertical-align: baseline;
+ width:100%;
 }
 
 header,
-nav,
-main {
+nav {
  display: inline-block;
 }
 
@@ -46,4 +46,25 @@ header {
  }
 }
 main{
+ display:block;
+ width:900px;
+ margin:0 auto;
+ button{
+  background-color:lighten(@color-2,20%);
+  padding:10px 15px;
+  margin:5px 10px;
+  color:@color-4;
+  border: none;
+  &:hover{
+   background-color:lighten(@color-2,10%);  
+  }
+  &:active{
+   background-color: @color-2;
+  }
+ }
+ select{
+  margin:5px 10px;
+  display:block;
+  padding:10px;
+ }
 }

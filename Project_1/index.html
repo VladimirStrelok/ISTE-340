@@ -35,7 +35,7 @@
       }
       activeDataset = jsonData[datasetName];
       console.log(activeDataset);
-      createSelect(activeDataset);
+      document.forms[0].appendChild(createSelect(activeDataset));
     }
     createSelect = function(data){
       var element=document.createElement("select");
@@ -54,16 +54,18 @@
         child.appendChild(text);
         element.appendChild(child);
       }
-      element.setAttribute('onchange','selectChange()');
-      document.forms[0].appendChild(element);     
+      element.setAttribute('onchange','selectChange(this)');
+      return element;     
     }
-    selectChange = function(){
-      var currentNode = this.parent.firstChild;
+    selectChange = function(cur){
+      var currentNode = cur.parent.firstChild;
       while(currentNode != this.parent.lastChild)
       {
         console.log(currentNode);
         currentNode = currentNode.nextSibling;
       }
+      console.log(cur);
+      document.forms[0].appendChild(createSelect(activeDataset[cur.value]));
     }
     getData();
   </script>
