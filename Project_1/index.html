@@ -5,9 +5,12 @@
   <title>Project 1</title>
   <link rel="stylesheet" href="css/styles.css">
   <script>
-
-    var jsonData, getData, setUp;
-
+    // variables
+    var jsonData, activeDatasetName, activeDataset;
+    
+    activeDatasetName = 'football';
+    // functions
+    var getData, setUp;
     getData = function(){
       var request, response;
       request = new XMLHttpRequest();
@@ -19,13 +22,23 @@
           if( request.readyState == 4 && request.status == 200 )
           {
               jsonData = JSON.parse( request.responseText );
-              setUp();
+              setUp(activeDatasetName);
           }
       }
       request.send();
     }
-    setUp = function(){
-      console.log(jsonData);
+    setUp = function(datasetName){
+      activeDataset = jsonData[datasetName];
+      console.log(activeDataset);
+      var element=document.createElement("select");
+      for(var i=0, l=Object.keys(activeDataset).length; i < l; i++){
+       var child = document.createElement('option');
+       var text = document.createTextNode(Object.keys(activeDataset)[i]);
+       child.setAttribute('value', activeDataset(Object.keys(activeDataset)[i]));
+       child.appendChild(text);
+       element.appendChild(child);
+      }
+      document.forms[0].appendChild(element);
     }
     getData();
   </script>
