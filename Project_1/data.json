@@ -1,57 +1,57 @@
 {
   "football":{
-    "AFC":{
-      "value":"afc",
+    "afc":{
+      "value":"AFC",
       "children":{
-        "East":{
-          "value":"east",
+        "east":{
+          "value":"East",
           "children":{
-            "Buffalo Bills":{
-              "value":"buffalo_bills",
+            "buffalo_bills":{
+              "value":"Buffalo Bills",
               "children":{
-                "Ron Brooks":{
-                  "value":"ron_brooks"
+                "ron_brooks":{
+                  "value":"Ron Brooks"
                 },
-                "Bryce Brown":{
-                  "value":"bryce_brown"
+                "bryce_brown":{
+                  "value":"Bryce Brown"
                 }
               }
             },
-            "New York Jets":{
-              "value":"ny_jets",
+            "ny_jets":{
+              "value":"New York Jets",
               "children":{
-                "Michael Vick":{
-                  "value":"michael_vick"
+                "michael_vick":{
+                  "value":"Michael Vick"
                 },
-                "Chris Johnson":{
-                  "value":"chris_johnson"
+                "chris_johnson":{
+                  "value":"Chris Johnson"
                 }
               }
             }
           }
         },
-        "West":{
-          "value":"west",
+        "west":{
+          "value":"West",
           "children":{
-            "Kansas City Chiefs":{
-              "value":"kansas_city_chiefs",
+            "kansas_city_chiefs":{
+              "value":"Kansas City Chiefs",
               "children":{
-                "Jamaal Charles":{
-                  "value":"jamaal_charles"
+                "jamaal_charles":{
+                  "value":"Jamaal Charles"
                 },
-                "Alex Smith":{
-                  "values":"alex_smith"
+                "alex_smith":{
+                  "values":"Alex Smith"
                 }
               }
             },
-            "Denver Broncos":{
-              "values":"denver_broncos",
+            "denver_broncos":{
+              "values":"Denver Broncos",
               "children":{
-                "Peyton Manning":{
-                  "values":"peyton_manning"
+                "peyton_manning":{
+                  "values":"Peyton Manning"
                 },
-                "Demaryius Thomas":{
-                  "values":"demaryus_thomas"
+                "demaryus_thomas":{
+                  "values":"Demaryius Thomas"
                 }
               }
             }
@@ -59,58 +59,58 @@
         }
       }
     },
-    "NFC":{
-      "value":"nfc",
+    "nfc":{
+      "value":"NFC",
       "children":{
-        "East":{
-          "value":"east",
+        "east":{
+          "value":"East",
           "children":{
-            "New York Giants":{
-              "value":"ny_giants",
+            "ny_giants":{
+              "value":"New York Giants",
               "children":{
-                "Eli Manning":{
-                  "value":"eli_manning"
+                "eli_manning":{
+                  "value":"Eli Manning"
                 },
-                "Victor Cruz":{
-                  "value":"victor_cruz"
+                "victor_cruz":{
+                  "value":"Victor Cruz"
                 }
               }
             },
-            "Philadelphia Eagles":{
-              "value":"eagles",
+            "philadelphia_eagles":{
+              "value":"Philadelphia Eagles",
               "children":{
-                "Nick Foles":{
-                  "value":"nick_foles"
+                "nick_foles":{
+                  "value":"Nick Foles"
                 },
-                "Lesean McCoy":{
-                  "value":"lesean_mccoy"
+                "lesean_mccoy":{
+                  "value":"Lesean McCoy"
                 }
               }
             }
           }
         },
-        "West":{
-          "value":"west",
+        "west":{
+          "value":"West",
           "children":{
-            "St. Louis Rams":{
-              "value":"st_louis_rams",
+            "st_louis_rams":{
+              "value":"St. Louis Rams",
               "children":{
-                "Sam Bradford":{
-                  "value":"sam_bradford"
+                "sam_bradford":{
+                  "value":"Sam Bradford"
                 },
-                "Tavon Austin":{
-                  "value":"tavon_austin"
+                "tavon_austin":{
+                  "value":"Tavon Austin"
                 }
               }
             },
-            "Seattle Seahawks":{
-              "value":"seattle_seahawks",
+            "seattle_seahawks":{
+              "value":"Seattle Seahawks",
               "children":{
-                "Richard Sherman":{
-                  "value":"richard_sherman"
+                "richard_sherman":{
+                  "value":"Richard Sherman"
                 },
-                "Russell Wilson":{
-                  "value":"russell_wilson"
+                "russell_wilson":{
+                  "value":"Russell Wilson"
                 }
               }
             }
