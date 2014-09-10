@@ -1,45 +1,122 @@
 {
- "football":{
-  "AFC":{
-   "East":{
-    "Buffalo Bills":{
-      "Ron Brooks",
-      "Bryce Brown"
+  "football":{
+    "AFC":{
+      "value":"afc",
+      "children":{
+        "East":{
+          "value":"east",
+          "children":{
+            "Buffalo Bills":{
+              "value":"buffalo_bills",
+              "children":{
+                "Ron Brooks":{
+                  "value":"ron_brooks"
+                },
+                "Bryce Brown":{
+                  "value":"bryce_brown"
+                }
+              }
+            },
+            "New York Jets":{
+              "value":"ny_jets",
+              "children":{
+                "Michael Vick":{
+                  "value":"michael_vick"
+                },
+                "Chris Johnson":{
+                  "value":"chris_johnson"
+                }
+              }
+            }
+          }
+        },
+        "West":{
+          "value":"west",
+          "children":{
+            "Kansas City Chiefs":{
+              "value":"kansas_city_chiefs",
+              "children":{
+                "Jamaal Charles":{
+                  "value":"jamaal_charles"
+                },
+                "Alex Smith":{
+                  "values":"alex_smith"
+                }
+              }
+            },
+            "Denver Broncos":{
+              "values":"denver_broncos",
+              "children":{
+                "Peyton Manning":{
+                  "values":"peyton_manning"
+                },
+                "Demaryius Thomas":{
+                  "values":"demaryus_thomas"
+                }
+              }
+            }
+          }
+        }
+      }
     },
-    "New York Jets",:{
-     "Michael Vick",
-     "Chris Johnson"
-   },
-   "West":{
-    "Kansas City Chiefs":{
-     "Jamaal Charles",
-     "Alex Smith"
-    },
-    "Denver Broncos":{
-     "Peyton Manning",
-     Demaryius Thomas
-   }
-  },
-  "NFC":{
-   "East":{
-    "New York Giants":{
-     "Eli Manning",
-     "Victor Cruz"
-    },
-    "Philadelphia Eagles";[
-     "Nick Foles",
-     "Lesean McCoy"
-   },
-   "West":{
-    "St. Louis Rams":{
-     "Sam Bradford",
-     "Tavon Austin"
-    },
-    "Seattle Seahawks":{
-     "Richard Sherman",
-     "Russell Wilson"
+    "NFC":{
+      "value":"nfc",
+      "children":{
+        "East":{
+          "value":"east",
+          "children":{
+            "New York Giants":{
+              "value":"ny_giants",
+              "children":{
+                "Eli Manning":{
+                  "value":"eli_manning"
+                },
+                "Victor Cruz":{
+                  "value":"victor_cruz"
+                }
+              }
+            },
+            "Philadelphia Eagles":{
+              "value":"eagles",
+              "children":{
+                "Nick Foles":{
+                  "value":"nick_foles"
+                },
+                "Lesean McCoy":{
+                  "value":"lesean_mccoy"
+                }
+              }
+            }
+          }
+        },
+        "West":{
+          "value":"west",
+          "children":{
+            "St. Louis Rams":{
+              "value":"st_louis_rams",
+              "children":{
+                "Sam Bradford":{
+                  "value":"sam_bradford"
+                },
+                "Tavon Austin":{
+                  "value":"tavon_austin"
+                }
+              }
+            },
+            "Seattle Seahawks":{
+              "value":"seattle_seahawks",
+              "children":{
+                "Richard Sherman":{
+                  "value":"richard_sherman"
+                },
+                "Russell Wilson":{
+                  "value":"russell_wilson"
+                }
+              }
+            }
+          }
+        }
+      }
     }
-   }
   }
- }
 }

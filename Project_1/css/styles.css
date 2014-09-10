@@ -10,19 +10,26 @@ body {
   vertical-align: baseline;
 }
 header,
-nav {
+nav,
+main {
   display: inline-block;
 }
 header {
-  padding: 5px;
   color: #fff;
   width: 100%;
-  background-color: #4D0100;
+  background-color: #8c0200;
 }
 header span {
+  padding: 20px 10px;
   font-size: 125%;
   display: inline;
 }
 header nav a {
   padding: 15px 10px;
+  background-color: #4d0100;
+  display: inline-block;
+}
+header nav a.active {
+  background-color: #ffffff;
+  color: #000000;
 }
