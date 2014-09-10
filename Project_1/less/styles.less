@@ -1,70 +1,75 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(../bower_components/lesshat/build/lesshat.less);
 
-@color-1:#4D0100;
-@color-2:#8C0200;
-@color-3:#B30300;
-@color-4:#ffffff;
-@color-5:#000000;
+@color-1:#23A38F;
+@color-2:#B7C11E;
+@color-3:#EFF1C2;
+@color-4:#F0563D;
+@color-5:#2E313D;
 
 
 
 html,body{
- font-family: Roboto,Arial, sans-serif;
- margin: 0;
- padding: 0;
- border: 0;
- font-size: 100%;
- font: inherit;
- vertical-align: baseline;
- width:100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  width:100%;
+}
+body{
+  font-family: 'Roboto', sans-serif;
 }
 
 header,
 nav {
- display: inline-block;
+  display: inline-block;
 }
 
 header {
- color:#fff;
- width:100%;
- background-color:@color-2;
- span{
-   padding:20px 10px;
-  font-size:125%;
-  display:inline;
- }
- nav{
-  a{
-   padding:15px 10px;
-   background-color:@color-1;
-   display: inline-block;
-   &.active{
-     background-color:@color-4;
-     color:@color-5
-   }
+  color:#fff;
+  width:100%;
+  background-color:@color-2;
+  padding:0 20%;
+  nav{
+    span{
+      padding:20px 10px;
+      font-size:125%;
+      display:inline;
+    }
+    a{
+      padding:15px 10px;
+      background-color:@color-1;
+      display: inline-block;
+      border:solid 1px #ccc;
+      transition: background-color .2s, color .2s;
+      &.active{
+        background-color:darken(@color-4,20%);
+      }
+    }
   }
- }
 }
 main{
- display:block;
- width:900px;
- margin:0 auto;
- button{
-  background-color:lighten(@color-2,20%);
-  padding:10px 15px;
-  margin:5px 10px;
-  color:@color-4;
-  border: none;
-  &:hover{
-   background-color:lighten(@color-2,10%);  
-  }
-  &:active{
-   background-color: @color-2;
-  }
- }
- select{
-  margin:5px 10px;
   display:block;
-  padding:10px;
- }
+  width:900px;
+  margin:0 auto;
+  button{
+    background-color:lighten(@color-5,20%);
+    padding:10px 15px;
+    margin:5px 10px;
+    color:@color-4;
+    border: none;
+    &:hover{
+      background-color:lighten(@color-5,10%);
+    }
+    &:active{
+      background-color: @color-5;
+    }
+  }
+  select{
+    margin:5px 10px;
+    display:block;
+    padding:10px;
+  }
 }
