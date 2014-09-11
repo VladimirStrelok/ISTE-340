@@ -68,22 +68,26 @@ main{
       background-color:darken(@color-5,20%);
     }
   }
-  select{
-    margin:5px 10px;
-    display:block;
-    padding:10px;
-    font-weight:700;
-    .transition(opacity 500ms);
-    color:@color-4;
-    background-color:@color-5;
-  }
-  #category{
-    margin:5px 10px;
-    .transition(content 500ms);
-  }
   #output{
     margin:5px 10px;
     display:block;
     font-size:120%;
+    table{
+      width: 100%;
+    }
+  }
+  section{
+    span{
+      margin:5px 10px;
+    }
+    select{
+      margin:5px 10px;
+      display:block;
+      padding:10px;
+      font-weight:700;
+      .transition(opacity 500ms);
+      color:@color-4;
+      background-color:@color-5;
+    }
   }
 }

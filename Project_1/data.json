@@ -1,6 +1,7 @@
 {
   "football":{
     "value":"Favorite Football Player",
+    "question"
     "children":{
       "afc":{
         "value":"AFC",

@@ -58,7 +58,18 @@ main button:hover {
 main button:active {
   background-color: #020203;
 }
-main select {
+main #output {
+  margin: 5px 10px;
+  display: block;
+  font-size: 120%;
+}
+main #output table {
+  width: 100%;
+}
+main section span {
+  margin: 5px 10px;
+}
+main section select {
   margin: 5px 10px;
   display: block;
   padding: 10px;
@@ -69,16 +80,4 @@ main select {
   transition: opacity 500ms;
   color: #f0563d;
   background-color: #2e313d;
-}
-main #category {
-  margin: 5px 10px;
-  -webkit-transition: content 500ms;
-  -moz-transition: content 500ms;
-  -o-transition: content 500ms;
-  transition: content 500ms;
-}
-main #output {
-  margin: 5px 10px;
-  display: block;
-  font-size: 120%;
 }
