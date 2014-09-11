@@ -22,20 +22,20 @@
 
   <script>
 
-  //fixing IE8 isue with Object.keys
-  if (!Object.keys) {
-    Object.keys = function(obj) {
-      var keys = [];
-
-      for (var i in obj) {
-        if (obj.hasOwnProperty(i)) {
-          keys.push(i);
+    //fixing IE8 isue with Object.keys
+    if (!Object.keys) {
+      Object.keys = function(obj) {
+        var keys = [];
+        for (var i in obj) {
+          if (obj.hasOwnProperty(i)) {
+            keys.push(i);
+          }
         }
-      }
+        return keys;
+      };
+    }
 
-      return keys;
-    };
-  }
+
 
   // variables
   var jsonData, activeDatasetName, activeDataset;
@@ -43,7 +43,7 @@
   activeDatasetName = 'football';
 
   // functions
-  var getData, setUp, createSelect, selectChange, generateNav,anchorClick;
+  var getData, setUp, createSelect, selectChange, generateNav, anchorClick, print, getSelected;
 
   getData = function(){
     var request, response;
@@ -82,6 +82,7 @@
       var firstChild =  document.createElement("option");
       var firstChildText = document.createTextNode("Choose an Option");
       firstChild.appendChild(firstChildText);
+      firstChild.setAttribute("value","");
       firstChild.setAttribute("disabled", true)
       firstChild.setAttribute("selected", true)
       firstChild.setAttribute("hidden", true)
@@ -142,6 +143,40 @@
       setUp();
     }
   }
+  getSelectedValues = function(){
+    var selected, toReturn = [];
+    selected  = document.forms[0].getElementsByTagName("select");
+    for(var i = 0, l = selected.length; i < l; i++){
+      var val =selected[i].options[selected[i].selectedIndex].value;
+      if(val){
+        toReturn.push(val);
+      }
+    }
+    return toReturn;
+  }
+  getSelectedText = function(){
+    var selected, toReturn = [];
+    selected  = document.forms[0].getElementsByTagName("select");
+    for(var i = 0, l = selected.length; i < l; i++){
+      var val =selected[i].options[selected[i].selectedIndex].value;
+      var text = selected[i].options[selected[i].selectedIndex].textContent;
+      if(val){
+        toReturn.push(text);
+      }
+    }
+    return toReturn;
+  }
+  print = function(){
+    var values = getSelectedText();
+    var toPrint = "";
+    for(var i = 0, l = values.length; i<l; i++){
+      toPrint = toPrint + values[i]
+      if(i != l-1){
+        toPrint = toPrint + " => ";
+      }  
+    }
+    document.getElementById('output').textContent = toPrint;
+  }
   getData();
   </script>
 </head>
@@ -156,8 +191,9 @@
     <form>
     </form>
     <button onclick="setUp(activeDatasetName)">Reset</button>
-    <button>Print</button>
+    <button onclick='print()'>Print</button>
     <button>Save</button>
+    <span id="output"></span>
   </main>
 </body>
 </html>

@@ -27,6 +27,7 @@ header nav span {
   display: inline;
   width: 40%;
   font-weight: 700;
+  color: #2e313d;
 }
 header nav a {
   padding: 15px 10px;
@@ -61,6 +62,7 @@ main select {
   margin: 5px 10px;
   display: inline-block;
   padding: 10px;
+  font-weight: 700;
   -webkit-transition: opacity 500ms;
   -moz-transition: opacity 500ms;
   -o-transition: opacity 500ms;
@@ -74,4 +76,9 @@ main #category {
   -moz-transition: content 500ms;
   -o-transition: content 500ms;
   transition: content 500ms;
+}
+main #output {
+  margin: 5px 10px;
+  display: block;
+  font-size: 120%;
 }
