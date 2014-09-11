@@ -73,7 +73,7 @@
   var jsonData, activeDatasetName, activeDataset, form;
 
   // functions
-  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset;
+  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clearOutput;
 
   getData = function(){
     var request, response;
@@ -159,9 +159,7 @@
     var output = $('output');
     while(cur.parentNode.nextSibling){
       cur.parentNode.parentNode.removeChild(cur.parentNode.nextSibling)
-      while(output.firstChild){
-        output.removeChild(output.firstChild);
-      }
+      clearOutput();
     }
     var currentData = activeDataset;
     var values = getSelectedValues();
@@ -188,24 +186,47 @@
         anchors[i].setAttribute('class','');
       }
       activeDatasetName = anchor.id;
+      clearOutput();
       setUp();
     }
   }
   print = function(){
     var values = getSelectedValues();
-    var printTable = _('table');
-    var currentData = activeDataset;
-    for(var i = 0, l = values.length; i < l; i++){
-      printTable.appendChild(createRow([currentData.question, currentData.answers[values[i]].text]))
-      currentData = currentData.answers[values[i]];
-    }
-    var output = $('output');
-    while(output.firstChild){
-      output.removeChild(output.firstChild)
-    }
-    output.appendChild(printTable);
-  }
+    if(values.length){
+      var printTable = _('table');
+      var tableHead = _('thead');
 
+      var tableHeadRow = _('tr');
+
+      var tableHead1 = _('th')
+      tableHead1.appendChild(__('Question'));
+
+      var tableHead2 = _('th')
+      tableHead2.appendChild(__('Response'));
+
+      tableHeadRow.appendChild(tableHead1);
+      tableHeadRow.appendChild(tableHead2);
+
+      tableHead.appendChild(tableHeadRow);
+
+      var tableBody = _('tbody');
+      var currentData = activeDataset;
+      for(var i = 0, l = values.length; i < l; i++){
+        tableBody.appendChild(createRow([currentData.question, currentData.answers[values[i]].text]))
+        currentData = currentData.answers[values[i]];
+      }
+      clearOutput()
+      printTable.appendChild(tableHead);
+      printTable.appendChild(tableBody);
+      output.appendChild(printTable);
+    }
+  }
+  clearOutput = function(){
+      var output = $('output');
+      while(output.firstChild){
+        output.removeChild(output.firstChild)
+      }
+  }
   createRow = function(data){
     var row = _('tr');
     for(var i = 0, l = data.length; i < l; i++){
@@ -240,9 +261,7 @@
     return toReturn;
   }
   reset = function(){
-    while(output.firstChild){
-      output.removeChild(output.firstChild);
-    }
+    clearOutput();
     setUp();
   }
 

@@ -1,4 +1,15 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 html,
 body {
   margin: 0;
@@ -32,6 +43,7 @@ header nav span {
 header nav a {
   padding: 15px 10px;
   background-color: #23a38f;
+  border-collapse: collapse;
   display: inline-block;
   transition: background-color 0.2s, color 0.2s;
   border: solid 1px #2e313d;
@@ -65,6 +77,13 @@ main #output {
 }
 main #output table {
   width: 100%;
+  border-collapse: collapse;
+}
+main #output table td {
+  border-collapse: collapse;
+  padding: 5px 10px;
+  border: 1px solid #2e313d;
+  margin: 0px;
 }
 main section span {
   margin: 5px 10px;
