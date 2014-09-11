@@ -7,8 +7,6 @@
 @color-4:#F0563D;
 @color-5:#2E313D;
 
-
-
 html,body{
   margin: 0;
   padding: 0;
@@ -31,7 +29,6 @@ header {
   color:#fff;
   width:100%;
   background-color:@color-2;
-  padding:0 20%;
   nav{
     span{
       padding:20px 10px;
@@ -49,9 +46,6 @@ header {
         background-color:darken(@color-4,20%);
       }
       border:solid 1px @color-5;
-    }
-    a+a{
-      border-left: 0px;
     }
   }
 }
@@ -78,8 +72,11 @@ main{
     display:inline-block;
     padding:10px;
     .transition(opacity 500ms);
+    color:@color-4;
+    background-color:@color-5;
   }
   #category{
+    margin:5px 10px;
     .transition(content 500ms);
   }
 }

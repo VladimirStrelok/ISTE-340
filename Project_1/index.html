@@ -132,13 +132,15 @@
     }
   }
   anchorClick = function(anchor){
-    var nav = document.getElementById("nav");
-    var anchors = nav.getElementsByTagName('a');
-    for(var i = 0, l=anchors.length; i < l; i++){
-      anchors[i].setAttribute('class','');
+    if(anchor.id != activeDatasetName){
+      var nav = document.getElementById("nav");
+      var anchors = nav.getElementsByTagName('a');
+      for(var i = 0, l=anchors.length; i < l; i++){
+        anchors[i].setAttribute('class','');
+      }
+      activeDatasetName = anchor.id;
+      setUp();
     }
-    activeDatasetName = anchor.id;
-    setUp();
   }
   getData();
   </script>

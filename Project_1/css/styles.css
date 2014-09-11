@@ -20,7 +20,6 @@ header {
   color: #fff;
   width: 100%;
   background-color: #b7c11e;
-  padding: 0 20%;
 }
 header nav span {
   padding: 20px 10px;
@@ -38,9 +37,6 @@ header nav a {
 }
 header nav a.active {
   background-color: #b9260e;
-}
-header nav a + a {
-  border-left: 0px;
 }
 main {
   display: block;
@@ -69,8 +65,11 @@ main select {
   -moz-transition: opacity 500ms;
   -o-transition: opacity 500ms;
   transition: opacity 500ms;
+  color: #f0563d;
+  background-color: #2e313d;
 }
 main #category {
+  margin: 5px 10px;
   -webkit-transition: content 500ms;
   -moz-transition: content 500ms;
   -o-transition: content 500ms;
