@@ -60,7 +60,7 @@ main button:active {
 }
 main select {
   margin: 5px 10px;
-  display: inline-block;
+  display: block;
   padding: 10px;
   font-weight: 700;
   -webkit-transition: opacity 500ms;

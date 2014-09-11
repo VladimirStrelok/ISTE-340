@@ -5,11 +5,11 @@
   <title>Project 1</title>
   <link rel="stylesheet" href="css/styles.css">
   <!--[if lt IE 9]>
-  <script>
-    document.createElement('nav');
-    document.createElement('header');
-    document.createElement('main');
-  </script>
+    <script>
+      document.createElement('nav');
+      document.createElement('header');
+      document.createElement('main');
+    </script>
   <![endif]-->
   <!--[if lt IE 8]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
@@ -34,16 +34,42 @@
         return keys;
       };
     }
+  // Shortcuts
+  var $, __, _, __;
 
+  // getElementById shortcut
+  $ = function (id){
+    return document.getElementById(id);
+  }
 
+  // getElementsTagName shortcut
+  $$ = function (tag,which){
+    if(which){
+      return document.getElementsByTagName(tag)[which];
+    }
+    else{
+      return document.getElementsByTagName(tag);
+    }
+  }
+
+  //createElement shortcut
+  _ = function (tag, attributes){
+    var ele = document.createElement(tag);
+    for(var i = 0, l = attributes.length; i < l; i ++){
+      ele.setAttribute(attributes[i][0],attributes[i][1]);
+    }
+    return ele;
+  }
+
+ __ = function(text){
+   return document.createTextNode(text);
+ }
 
   // variables
-  var jsonData, activeDatasetName, activeDataset;
-
-  activeDatasetName = 'football';
+  var jsonData, activeDatasetName, activeDataset, form;
 
   // functions
-  var getData, setUp, createSelect, selectChange, generateNav, anchorClick, print, getSelected;
+  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected;
 
   getData = function(){
     var request, response;
@@ -54,49 +80,48 @@
     request.onreadystatechange = function(){
       if( request.readyState == 4 && request.status == 200 ){
         jsonData = JSON.parse( request.responseText );
-        generateNav();
-        setUp();
+        startUp();
       }
     }
     request.send();
   }
-  setUp = function(){
-    while(document.forms[0].firstChild){
-      document.forms[0].removeChild(document.forms[0].firstChild);
-    }
-    activeDataset = jsonData[activeDatasetName];
-    document.getElementById(activeDatasetName).setAttribute('class','active')
-    var initial = createSelect(activeDataset)
-    document.forms[0].appendChild(initial);
-    initial.style.opacity = 0;
-    window.getComputedStyle(initial).opacity;
-    // Fade it in.
-    initial.style.opacity = 1;
 
-    var category = document.getElementById('category');
-    category.textContent = activeDataset.value;
+  startUp = function(){
+    activeDatasetName = Object.keys(jsonData)[0];
+    form = document.forms[0];
+    generateNav();
+    setUp();
+  }
+
+  setUp = function(){
+    var initial, category;
+
+    while(form.firstChild){
+      form.removeChild(form.firstChild);
+    }
+
+    activeDataset = jsonData[activeDatasetName];
+    $(activeDatasetName).setAttribute('class','active')
+
+    initial = createSelect(activeDataset)
+    form.appendChild(initial);
+
+    category = $('category');
+    category.addChild = activeDataset.value;
   }
   createSelect = function(data){
     if(data.children){
-      var element=document.createElement("select");
-      var firstChild =  document.createElement("option");
-      var firstChildText = document.createTextNode("Choose an Option");
-      firstChild.appendChild(firstChildText);
-      firstChild.setAttribute("value","");
-      firstChild.setAttribute("disabled", true)
-      firstChild.setAttribute("selected", true)
-      firstChild.setAttribute("hidden", true)
+      var element = _('select',[['onchange','selectChange(this)']]);
+      var firstChild =  _("option",[["value",""],["disabled", true],["selected", true],["hidden", true]]);
+      firstChild.appendChild(__("Choose an Option"));
       element.appendChild(firstChild);
       var keys = Object.keys(data.children);
       for(var i=0, l=keys.length; i < l; i++){
         var key = keys[i];
-        var child = document.createElement('option');
-        var text = document.createTextNode(data.children[key].value);
-        child.setAttribute('value',key)
-        child.appendChild(text);
+        var child = _('option',[['value',key]]);
+        child.appendChild(__(data.children[key].value));
         element.appendChild(child);
       }
-      element.setAttribute('onchange','selectChange(this)');
       return element;
     }
 
@@ -112,29 +137,22 @@
     } while(currentNode = currentNode.nextSibling);
     var nextChild = createSelect(currentData);
     if(nextChild){
-      document.forms[0].appendChild(nextChild);
-      nextChild.style.opacity = 0;
-      window.getComputedStyle(nextChild).opacity;
-      // Fade it in.
-      nextChild.style.opacity = 1;
+      form.appendChild(nextChild);
     }
   }
   generateNav = function(){
     var keys = Object.keys(jsonData);
-    var nav = document.getElementById("nav");
+    var nav = $("nav");
     for(var i=0, l=keys.length; i < l; i++){
       var key = keys[i];
-      var anchor = document.createElement('a');
-      var anchorText = document.createTextNode(jsonData[key].value);
-      anchor.appendChild(anchorText);
-      anchor.setAttribute("id",key);
-      anchor.setAttribute("onclick","anchorClick(this)");
+      var anchor = _('a',[["id",key],["onclick","anchorClick(this)"]]);
+      anchor.appendChild(__(jsonData[key].value));
       nav.appendChild(anchor);
     }
   }
   anchorClick = function(anchor){
     if(anchor.id != activeDatasetName){
-      var nav = document.getElementById("nav");
+      var nav = $("nav");
       var anchors = nav.getElementsByTagName('a');
       for(var i = 0, l=anchors.length; i < l; i++){
         anchors[i].setAttribute('class','');
@@ -145,7 +163,7 @@
   }
   getSelectedValues = function(){
     var selected, toReturn = [];
-    selected  = document.forms[0].getElementsByTagName("select");
+    selected  = form.getElementsByTagName("select");
     for(var i = 0, l = selected.length; i < l; i++){
       var val =selected[i].options[selected[i].selectedIndex].value;
       if(val){
@@ -156,7 +174,7 @@
   }
   getSelectedText = function(){
     var selected, toReturn = [];
-    selected  = document.forms[0].getElementsByTagName("select");
+    selected  = form.getElementsByTagName("select");
     for(var i = 0, l = selected.length; i < l; i++){
       var val =selected[i].options[selected[i].selectedIndex].value;
       var text = selected[i].options[selected[i].selectedIndex].textContent;
@@ -173,9 +191,13 @@
       toPrint = toPrint + values[i]
       if(i != l-1){
         toPrint = toPrint + " => ";
-      }  
+      }
     }
-    document.getElementById('output').textContent = toPrint;
+    var output = $('output');
+    while(output.firstChild){
+     output.removeChild(output.firstChild)
+    }
+    output.appendChild(__(toPrint));
   }
   getData();
   </script>

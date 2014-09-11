@@ -1,0 +1,208 @@
+{
+  "football":{
+    "text":"Favorite Football Player",
+    "question":"Which Conferance do you like?",
+    "answers":{
+      "afc":{
+        "text":"AFC",
+        "question":"Which division do you like?",
+        "answers":{
+          "east":{
+            "text":"East",
+            "question":"Which Team do you like?",
+            "answers":{
+              "buffalo_bills":{
+                "text":"Buffalo Bills",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "ron_brooks":{
+                    "text":"Ron Brooks"
+                  },
+                  "bryce_brown":{
+                    "text":"Bryce Brown"
+                  }
+                }
+              },
+              "ny_jets":{
+                "text":"New York Jets",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "michael_vick":{
+                    "text":"Michael Vick"
+                  },
+                  "chris_johnson":{
+                    "text":"Chris Johnson"
+                  }
+                }
+              }
+            }
+          },
+          "west":{
+            "text":"West",
+            "question":"Which Team do you like?",
+            "answers":{
+              "buffalo_bills":{
+                "text":"Buffalo Bills",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "ron_brooks":{
+                    "text":"Ron Brooks"
+                  },
+                  "bryce_brown":{
+                    "text":"Bryce Brown"
+                  }
+                }
+              },
+              "ny_jets":{
+                "text":"New York Jets",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "michael_vick":{
+                    "text":"Michael Vick"
+                  },
+                  "chris_johnson":{
+                    "text":"Chris Johnson"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "nfc":{
+        "text":"NFC",
+        "question":"Which division do you like?",
+        "answers":{
+          "east":{
+            "text":"East",
+            "question":"Which Team do you like?",
+            "answers":{
+              "buffalo_bills":{
+                "text":"Buffalo Bills",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "ron_brooks":{
+                    "text":"Ron Brooks"
+                  },
+                  "bryce_brown":{
+                    "text":"Bryce Brown"
+                  }
+                }
+              },
+              "ny_jets":{
+                "text":"New York Jets",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "michael_vick":{
+                    "text":"Michael Vick"
+                  },
+                  "chris_johnson":{
+                    "text":"Chris Johnson"
+                  }
+                }
+              }
+            }
+          },
+          "west":{
+            "text":"West",
+            "question":"Which Team do you like?",
+            "answers":{
+              "buffalo_bills":{
+                "text":"Buffalo Bills",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "ron_brooks":{
+                    "text":"Ron Brooks"
+                  },
+                  "bryce_brown":{
+                    "text":"Bryce Brown"
+                  }
+                }
+              },
+              "ny_jets":{
+                "text":"New York Jets",
+                "question":"Who is your favorite player",
+                "answers":{
+                  "michael_vick":{
+                    "text":"Michael Vick"
+                  },
+                  "chris_johnson":{
+                    "text":"Chris Johnson"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+"date":{
+  "text":"Find a Date",
+  "question":"Do you like men or women?",
+  "answers":{
+    "men":{
+      "text":"Men",
+      "question":"Do you like men with facial hair",
+      "answers":{
+        "beard":{
+          "Text":"Has a Beard",
+          "question":"Do you like men with light or dark complexion?",
+          "answers":{
+            "dark":{
+              "text":"Dark Complexion"
+            },
+            "light":{
+              "text":"Light Complexion"
+            }
+          }
+        },
+        "clean":{
+          "value":"Clean Shaven",
+          "question":"What build of man do you like?",
+          "answers":{
+            "heavy":{
+              "text":"Heavy Build"
+            },
+            "athletic":{
+              "text":"Athletic Build"
+            }
+          }
+        }
+      }
+    },
+    "women":{
+      "text":"Women",
+      "question":"What color hair do you like",
+      "answers":{
+        "blonde":{
+          "text":"Blonde",
+          "question":"Do you like tall or short women?",
+          "answers":{
+            "tall":{
+              "text":"Tall"
+            },
+            "short":{
+              "text":"Short"
+            }
+          }
+        },
+        "brunette":{
+          "text":"Brunette",
+          "question":"What color eyes do you like?",
+          "answers":{
+            "blue":{
+              "text":"Blue Eyes"
+            },
+            "brown":{
+              "text":"Brown Eyes"
+            },
+            "green":{
+              "text":"Green Eyes"
+            }
+          }
+        }
+      }
+    }
+  }
+}
