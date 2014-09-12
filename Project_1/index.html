@@ -70,10 +70,15 @@
   }
 
   // variables
-  var jsonData, activeDatasetName, activeDataset, form;
+  var jsonData, activeDatasetName, activeDataset, form, ie7;
+
+  ie7 = false;
+  if(document.all && !document.querySelector){
+    ie7 = true;
+  }
 
   // functions
-  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clearOutput;
+  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save;
 
   getData = function(){
     var request, response;
@@ -94,7 +99,7 @@
     activeDatasetName = Object.keys(jsonData)[0];
     form = document.forms[0];
     generateNav();
-    setUp();
+    setUp(localStorage);
   }
   generateNav = function(){
     var keys, nav;
@@ -103,13 +108,21 @@
     for(var i=0, l=keys.length; i < l; i++){
       var key, anchor;
       key = keys[i];
-      anchor = _('a',[["id",key],["onclick","anchorClick(this)"]]);
+      anchor = _('a',[["id",key]]);
+      if (anchor.addEventListener){
+        anchor.addEventListener('click', anchorClick, false);
+      } else if (anchor.attachEvent){
+        anchor.attachEvent('onclick', anchorClick);
+      }
       anchor.appendChild(__(jsonData[key].text));
       nav.appendChild(anchor);
     }
   }
 
-  setUp = function(){
+  setUp = function(data){
+    if(data){
+      activeDatasetName = data.dataset;
+    }
     var initial, category;
 
     while(form.firstChild){
@@ -122,8 +135,22 @@
     initial = createSection(activeDataset);
     form.appendChild(initial);
 
-    category = $('category');
-    category.addChild = activeDataset.value;
+    if(data){
+      state = JSON.parse(data.state);
+      form.firstChild.getElementsByTagName('select')[0].value = state[0];
+      var tempDataset = activeDataset;
+      for(var i = 0, l = state.length-1; i < l; i++){
+        var child = createSection(tempDataset.answers[state[i]]);
+        child.getElementsByTagName('select')[0].value = state[i+1];
+        form.appendChild(child);
+        tempDataset = tempDataset.answers[state[i]];
+      }
+      print();
+    }
+
+    var category = $('category')
+    clear($('category'));
+    category.appendChild(__(jsonData[activeDatasetName].text));
   }
 
   createSection = function(data){
@@ -155,11 +182,12 @@
     }
     return element;
   }
-  selectChange = function(cur){;
+  selectChange = function(cur){
+    console.log('asdfasd')
     var output = $('output');
     while(cur.parentNode.nextSibling){
       cur.parentNode.parentNode.removeChild(cur.parentNode.nextSibling)
-      clearOutput();
+      clear($('output'));
     }
     var currentData = activeDataset;
     var values = getSelectedValues();
@@ -178,15 +206,15 @@
 
   }
 
-  anchorClick = function(anchor){
-    if(anchor.id != activeDatasetName){
+  anchorClick = function(){
+    if(this.id != activeDatasetName){
       var nav = $("nav");
       var anchors = nav.getElementsByTagName('a');
       for(var i = 0, l=anchors.length; i < l; i++){
         anchors[i].setAttribute('class','');
       }
-      activeDatasetName = anchor.id;
-      clearOutput();
+      activeDatasetName = this.id;
+      clear($('output'));
       setUp();
     }
   }
@@ -215,16 +243,16 @@
         tableBody.appendChild(createRow([currentData.question, currentData.answers[values[i]].text]))
         currentData = currentData.answers[values[i]];
       }
-      clearOutput()
+
+      clear($('output'));
       printTable.appendChild(tableHead);
       printTable.appendChild(tableBody);
       output.appendChild(printTable);
     }
   }
-  clearOutput = function(){
-      var output = $('output');
-      while(output.firstChild){
-        output.removeChild(output.firstChild)
+  clear = function(ele){
+      while(ele.firstChild){
+        ele.removeChild(ele.firstChild)
       }
   }
   createRow = function(data){
@@ -261,11 +289,22 @@
     return toReturn;
   }
   reset = function(){
-    clearOutput();
+    clear($('output'));
     setUp();
   }
 
+  if(!ie7){
+    save = function(){
+      localStorage.setItem('dataset',activeDatasetName);
+      localStorage.setItem('state',JSON.stringify(getSelectedValues()));
+    }
+  }
+  else{
+    console.log("IE 7");
+  }
+
   getData();
+  document.close();
   </script>
 </head>
 <body>
@@ -280,7 +319,7 @@
     </form>
     <button onclick="setUp()">Reset</button>
     <button onclick='print()'>Print</button>
-    <button>Save</button>
+    <button onclick='save()'>Save</button>
     <span id="output"></span>
   </main>
 </body>
