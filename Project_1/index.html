@@ -37,7 +37,7 @@
     };
   }
   // Shortcuts
-  var $, __, _, __;
+  var $, $$, _, __;
 
   // getElementById shortcut
   $ = function (id){
@@ -120,7 +120,7 @@
   }
 
   setUp = function(data){
-    if(data){
+    if(data && data.dataset){
       activeDatasetName = data.dataset;
     }
     var initial, category;
@@ -183,7 +183,6 @@
     return element;
   }
   selectChange = function(cur){
-    console.log('asdfasd')
     var output = $('output');
     while(cur.parentNode.nextSibling){
       cur.parentNode.parentNode.removeChild(cur.parentNode.nextSibling)
