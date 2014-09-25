@@ -36,7 +36,7 @@
       return keys;
     };
   }
-  // Shortcuts
+// Shortcuts
   var $, $$, _, __;
 
   // getElementById shortcut
@@ -78,7 +78,42 @@
   }
 
   // functions
-  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save;
+  var init,  getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save;
+
+  build = function(){
+    var body = $$('body','0'); 
+    var header = _('header');
+    var nav = _('nav',[['id','nav']]);
+    var span = _('span');
+    span.appendChild(__('Data Sets'));
+    nav.appendChild(span);
+    header.appendChild(nav);
+    body.appendChild(header);
+    
+    var main = _('main');
+    var h1 = _('h1',[['id','category']]);
+    var form = _('form');
+
+    var b1 = _('button');
+    b1.appendChild(__('Reset'));
+
+    var b2 = _('button');
+    b2.appendChild(__('Print'));
+
+    var b3 = _('button');
+    b3.appendChild(__('Save'));
+
+    main.appendChild(h1);
+    main.appendChild(form);
+    main.appendChild(b1);
+    main.appendChild(b2);
+    main.appendChild(b3);
+   
+    body.appendChild(main);
+    getData();
+    document.close();
+
+  }
 
   getData = function(){
     var request, response;
@@ -301,25 +336,9 @@
   else{
     console.log("IE 7");
   }
-
-  getData();
-  document.close();
+  
   </script>
 </head>
 <body>
-  <header>
-    <nav id='nav'>
-      <span>Data Sets</span>
-    </nav>
-  </header>
-  <main>
-    <h1 id='category'></h1>
-    <form>
-    </form>
-    <button onclick="setUp()">Reset</button>
-    <button onclick='print()'>Print</button>
-    <button onclick='save()'>Save</button>
-    <span id="output"></span>
-  </main>
 </body>
 </html>
