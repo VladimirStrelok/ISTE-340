@@ -96,6 +96,7 @@
 
     var b1 = _('button');
     b1.appendChild(__('Reset'));
+    b1.addEventListener('click',reset);
 
     var b2 = _('button');
     b2.appendChild(__('Print'));
@@ -285,9 +286,9 @@
     }
   }
   clear = function(ele){
-      while(ele.firstChild){
-        ele.removeChild(ele.firstChild)
-      }
+    while(ele.firstChild){
+      ele.removeChild(ele.firstChild)
+    }
   }
   createRow = function(data){
     var row = _('tr');
@@ -339,6 +340,6 @@
   
   </script>
 </head>
-<body>
+<body onload='build()'>
 </body>
 </html>
