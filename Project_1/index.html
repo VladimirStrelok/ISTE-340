@@ -78,7 +78,8 @@
   }
 
   // functions
-  var init,  getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save;
+
+  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save, clearHistory;
 
   build = function(){
     var body = $$('body','0'); 
@@ -103,12 +104,22 @@
 
     var b3 = _('button');
     b3.appendChild(__('Save'));
+    b3.addEventListener('click',save);
+
+    var b4 = _('button');
+    b4.appendChild(__('Clear Saved History'));
+    b4.addEventListener('click',clearHistory);
+    b4.addEventListener('click',reset);
+
+    var output = _('span',[['id','output']]);
 
     main.appendChild(h1);
     main.appendChild(form);
     main.appendChild(b1);
     main.appendChild(b2);
     main.appendChild(b3);
+    main.appendChild(b4);
+    main.appendChild(output);
    
     body.appendChild(main);
     getData();
@@ -171,8 +182,10 @@
     initial = createSection(activeDataset);
     form.appendChild(initial);
 
-    if(data){
+    if(data && data.state){
+
       state = JSON.parse(data.state);
+
       form.firstChild.getElementsByTagName('select')[0].value = state[0];
       var tempDataset = activeDataset;
       for(var i = 0, l = state.length-1; i < l; i++){
@@ -332,6 +345,9 @@
     save = function(){
       localStorage.setItem('dataset',activeDatasetName);
       localStorage.setItem('state',JSON.stringify(getSelectedValues()));
+    }
+    clearHistory = function(){
+      localStorage.clear();
     }
   }
   else{
