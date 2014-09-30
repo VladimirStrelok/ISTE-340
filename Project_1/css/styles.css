@@ -45,7 +45,6 @@ header nav a {
   background-color: #23a38f;
   border-collapse: collapse;
   display: inline-block;
-  transition: background-color 0.2s, color 0.2s;
   border: solid 1px #2e313d;
 }
 header nav a.active {
@@ -93,10 +92,6 @@ main section select {
   display: block;
   padding: 10px;
   font-weight: 700;
-  -webkit-transition: opacity 500ms;
-  -moz-transition: opacity 500ms;
-  -o-transition: opacity 500ms;
-  transition: opacity 500ms;
   color: #f0563d;
   background-color: #2e313d;
 }

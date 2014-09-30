@@ -10,12 +10,10 @@
       return keys;
     };
   }
+
   // Prototype
   Object.prototype.bindEvent = function(type, foo, flag){
     if (this.addEventListener){
-      console.log(type);
-      console.log(foo);
-      console.log(flag);
       this.addEventListener(type, foo, flag);
     } else if (anchor.attachEvent){
       anchor.attachEvent('onclick', anchorClick);
@@ -90,6 +88,7 @@
 
     var b2 = _('button');
     b2.appendChild(__('Print'));
+    b2.bindEvent('click',print);
 
     var b3 = _('button');
     b3.appendChild(__('Save'));
@@ -281,7 +280,7 @@
         currentData = currentData.answers[values[i]];
       }
 
-      clear($('output'));
+      clear($('#output'));
       printTable.appendChild(tableHead);
       printTable.appendChild(tableBody);
       output.appendChild(printTable);
