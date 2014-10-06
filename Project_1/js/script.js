@@ -1,3 +1,34 @@
+  /*
+    Written by Brett Casswell
+    http://stackoverflow.com/questions/597268/element-prototype-in-ie7
+  */
+
+  if ( !window.Element )
+  {
+      Element = function(){};
+
+      var __createElement = document.createElement;
+      document.createElement = function(tagName)
+      {
+          var element = __createElement(tagName);
+          if (element == null) {return null;}
+          for(var key in Element.prototype)
+                  element[key] = Element.prototype[key];
+          return element;
+      }
+
+      var __getElementById = document.getElementById;
+      document.getElementById = function(id)
+      {
+          var element = __getElementById(id);
+          if (element == null) {return null;}
+          for(var key in Element.prototype)
+                  element[key] = Element.prototype[key];
+          return element;
+      }
+  }
+
+
   //fixing IE8 isue with Object.keys
   if (!Object.keys) {
     Object.keys = function(obj) {
@@ -15,11 +46,16 @@
   Object.prototype.bindEvent = function(type, foo, flag){
     if (this.addEventListener){
       this.addEventListener(type, foo, flag);
-    } else if (anchor.attachEvent){
-      anchor.attachEvent('onclick', anchorClick);
+    } else if (this.attachEvent){
+      this.attachEvent('on'+type, function(){foo()});
     }
   }
+  Object.prototype.animate = function(args){
 
+  }
+  if(!Object.prototype.parentNode){
+    Object.prototype.parentNode = Object.prototype.parent;
+  }
   // Shortcuts
   var $, _, __;
 
@@ -92,12 +128,12 @@
 
     var b3 = _('button');
     b3.appendChild(__('Save'));
-    b3.addEventListener('click',save);
+    b3.bindEvent('click',save);
 
     var b4 = _('button');
     b4.appendChild(__('Clear Saved History'));
-    b4.addEventListener('click',clearHistory);
-    b4.addEventListener('click',reset);
+    b4.bindEvent('click',clearHistory);
+    b4.bindEvent('click',reset);
 
     var output = _('span',[['id','output']]);
 
@@ -144,11 +180,7 @@
       var key, anchor;
       key = keys[i];
       anchor = _('a',[["id",key]]);
-      if (anchor.addEventListener){
-        anchor.addEventListener('click', anchorClick, false);
-      } else if (anchor.attachEvent){
-        anchor.attachEvent('onclick', anchorClick);
-      }
+      anchor.bindEvent('click', anchorClick);
       anchor.appendChild(__(jsonData[key].text));
       nav.appendChild(anchor);
     }
@@ -165,7 +197,7 @@
     }
 
     activeDataset = jsonData[activeDatasetName];
-    $("#"+activeDatasetName).setAttribute('class','active');
+    $("#"+activeDatasetName).setAttribute((ie7 ? 'className' :'class'),'active');
 
     initial = createSection(activeDataset);
     form.appendChild(initial);
@@ -206,7 +238,8 @@
   }
 
   createSelect = function(data){
-    var element = _('select',[['onchange','selectChange(this)']]);
+    var element = _('select');
+    element.bindEvent('change',function(){selectChange(this)});
     var firstChild =  _("option",[["value",""],["disabled", true],["selected", true],["hidden", true]]);
     firstChild.appendChild(__("Choose an Option"));
     element.appendChild(firstChild);
@@ -221,6 +254,7 @@
   }
   selectChange = function(cur){
     var output = $('#output');
+    console.log(cur);
     while(cur.parentNode.nextSibling){
       cur.parentNode.parentNode.removeChild(cur.parentNode.nextSibling)
       clear($('#output'));
@@ -341,5 +375,3 @@
   else{
     console.log("IE 7");
   }
-
-  build();
