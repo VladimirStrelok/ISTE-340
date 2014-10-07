@@ -84,6 +84,48 @@ main #output table td {
   border: 1px solid #2e313d;
   margin: 0px;
 }
+main #contactForm {
+  margin: 5px 10px;
+  display: block;
+}
+main #contactForm .form-group {
+  display: block;
+}
+main #contactForm .form-group label,
+main #contactForm .form-group input,
+main #contactForm .form-group textarea {
+  padding: 5px;
+  display: block;
+  width: 100%;
+}
+main #contactForm .form-group input[type="text"],
+main #contactForm .form-group input[type="email"] {
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+main #contactForm .form-group input[type="text"]:focus {
+  outline: none;
+}
+main #contactForm .form-group textarea {
+  height: 80px;
+}
+main #contactForm input[type='submit'] {
+  background-color: #2e313d;
+  padding: 10px 15px;
+  margin: 5px 10px;
+  color: #f0563d;
+  border: none;
+  font-weight: 700;
+}
+main #contactForm input[type='submit']:hover {
+  background-color: #5a6077;
+}
+main #contactForm input[type='submit']:active {
+  background-color: #020203;
+}
 main section span {
   margin: 5px 10px;
 }

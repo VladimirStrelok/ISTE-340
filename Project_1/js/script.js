@@ -1,33 +1,34 @@
   /*
     Written by Brett Casswell
     http://stackoverflow.com/questions/597268/element-prototype-in-ie7
+
+    puts the prototype elements on everything
   */
 
-  if ( !window.Element )
-  {
-      Element = function(){};
+if ( !window.Element )
+{
+    Element = function(){};
 
-      var __createElement = document.createElement;
-      document.createElement = function(tagName)
-      {
-          var element = __createElement(tagName);
-          if (element == null) {return null;}
-          for(var key in Element.prototype)
-                  element[key] = Element.prototype[key];
-          return element;
-      }
+    var __createElement = document.createElement;
+    document.createElement = function(tagName)
+    {
+        var element = __createElement(tagName);
+        if (element == null) {return null;}
+        for(var key in Element.prototype)
+                element[key] = Element.prototype[key];
+        return element;
+    }
 
-      var __getElementById = document.getElementById;
-      document.getElementById = function(id)
-      {
-          var element = __getElementById(id);
-          if (element == null) {return null;}
-          for(var key in Element.prototype)
-                  element[key] = Element.prototype[key];
-          return element;
-      }
-  }
-
+    var __getElementById = document.getElementById;
+    document.getElementById = function(id)
+    {
+        var element = __getElementById(id);
+        if (element == null) {return null;}
+        for(var key in Element.prototype)
+                element[key] = Element.prototype[key];
+        return element;
+    }
+}
 
   //fixing IE8 isue with Object.keys
   if (!Object.keys) {
@@ -50,16 +51,11 @@
       this.attachEvent('on'+type, function(){foo()});
     }
   }
-  Object.prototype.animate = function(args){
-
-  }
-  if(!Object.prototype.parentNode){
-    Object.prototype.parentNode = Object.prototype.parent;
-  }
   // Shortcuts
   var $, _, __;
 
   // getElementById shortcut
+  // swaps things based on #
   $ = function (input,which){
     if(input.charAt(0) == '#'){
       var id = input.substring(1,input.length)
@@ -75,7 +71,8 @@
     }
   }
 
-  //createElement shortcut
+  // createElement shortcut
+  // can pass in an array of attributes
   _ = function (tag, attributes){
     var ele = document.createElement(tag);
     if(attributes){
@@ -86,6 +83,7 @@
     return ele;
   }
 
+  //shortcut to create text node
   __ = function(text){
     return document.createTextNode(text);
   }
@@ -95,6 +93,7 @@
   // variables
   var jsonData, activeDatasetName, activeDataset, form, ie7;
 
+  //checks for ie7
   ie7 = false;
   if(document.all && !document.querySelector){
     ie7 = true;
@@ -102,12 +101,17 @@
 
   // functions
 
-  var getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save, clearHistory, bindEvent;
+  var createForm, getData, startUp, setUp, createSection, createSelect, selectChange, generateNav, anchorClick, print, getSelected, reset, clear, save, clearHistory, bindEvent;
 
+  // builds the content for the page
   build = function(){
+    //get body
     var body = $('body','0');
+    //create the header tag
     var header = _('header');
+    //create the nav tag
     var nav = _('nav',[['id','nav']]);
+    //create a span to hold the title of the page
     var span = _('span');
     span.appendChild(__('Data Sets'));
     nav.appendChild(span);
@@ -145,12 +149,14 @@
     main.appendChild(b4);
     main.appendChild(output);
 
+    main.appendChild(createContact());
     body.appendChild(main);
     getData();
     document.close();
 
   }
 
+  //gets the json data via ajax
   getData = function(){
     var request, response;
     request = new XMLHttpRequest();
@@ -166,12 +172,26 @@
     request.send();
   }
 
+  //starts the build process
   startUp = function(){
     activeDatasetName = Object.keys(jsonData)[0];
     form = document.forms[0];
     generateNav();
-    setUp(localStorage);
+
+    //sets things up based on the storagetype
+    if(!ie7){
+      setUp(localStorage);
+    }
+    else{
+      var data = {};
+      data.state = GetCookie('state');
+      data.dataset = GetCookie('dataset')
+      console.log(data);
+      setUp(data);
+    }
   }
+
+  //generates the navbar based on the datasets
   generateNav = function(){
     var keys, nav;
     keys = Object.keys(jsonData);
@@ -180,12 +200,20 @@
       var key, anchor;
       key = keys[i];
       anchor = _('a',[["id",key]]);
-      anchor.bindEvent('click', anchorClick);
+      if(!ie7){
+        anchor.bindEvent('click', anchorClick);
+      }
+      else{
+        anchor.bindEvent('click', function(){anchorClick(key)});
+      }
+
+
       anchor.appendChild(__(jsonData[key].text));
       nav.appendChild(anchor);
     }
   }
 
+  //sets up the form
   setUp = function(data){
     if(data && data.dataset){
       activeDatasetName = data.dataset;
@@ -222,6 +250,7 @@
     category.appendChild(__(jsonData[activeDatasetName].text));
   }
 
+  //creates a section that holds the question and select options
   createSection = function(data){
     var section, question, select;
 
@@ -237,6 +266,7 @@
     return section;
   }
 
+  //builds a selsect based off of data sebmitted
   createSelect = function(data){
     var element = _('select');
     element.bindEvent('change',function(){selectChange(this)});
@@ -252,13 +282,23 @@
     }
     return element;
   }
+
+  //the function to be called on select change
   selectChange = function(cur){
     var output = $('#output');
-    console.log(cur);
-    while(cur.parentNode.nextSibling){
-      cur.parentNode.parentNode.removeChild(cur.parentNode.nextSibling)
-      clear($('#output'));
+    if(cur.parentNode){
+      while(cur.parentNode.nextSibling){
+        cur.parentNode.parentNode.removeChild(cur.parentNode.nextSibling)
+        clear($('#output'));
+      }
     }
+    else{
+      while(cur.parent.nextSibling){
+        cur.parentNode.parent.removeChild(cur.parent.nextSibling)
+        clear($('#output'));
+      }
+    }
+
     var currentData = activeDataset;
     var values = getSelectedValues();
     for(var i = 0, l = values.length; i < l; i++){
@@ -276,7 +316,8 @@
 
   }
 
-  anchorClick = function(){
+  // what is called when one of the anchor elements in the head is called
+  anchorClick = function(id){
     if(this.id != activeDatasetName){
       var nav = $("#nav");
       var anchors = nav.getElementsByTagName('a');
@@ -288,6 +329,8 @@
       setUp();
     }
   }
+
+  //prints the dataset, called at the end of data OR when the print button is pressed
   print = function(){
     var values = getSelectedValues();
     if(values.length){
@@ -320,11 +363,14 @@
       output.appendChild(printTable);
     }
   }
+  //empties and element
   clear = function(ele){
     while(ele.firstChild){
       ele.removeChild(ele.firstChild)
     }
   }
+
+  //creates a row for a table based off of data submitted
   createRow = function(data){
     var row = _('tr');
     for(var i = 0, l = data.length; i < l; i++){
@@ -334,7 +380,7 @@
     }
     return row;
   }
-
+  //gets the selected values for the data and returns it as a
   getSelectedValues = function(){
     var selected, toReturn = [];
     selected  = form.getElementsByTagName("select");
@@ -358,11 +404,84 @@
     }
     return toReturn;
   }
+  //resets the page
   reset = function(){
     clear($('#output'));
     setUp();
   }
 
+  //creates the contact form
+  createContact = function(){
+    var formDiv = _('div',[['id','contactForm']]);
+    var formTitle = _('h2');
+    formTitle.appendChild(__('Contact Form'));
+    formDiv.appendChild(formTitle);
+    var form = _('form',[['id','contactForm']]);
+
+
+    //Name
+    var nameGroup =_('div',[['class','form-group']]);
+    var nameLabel = _('label',[['for','form-name']]);
+    nameLabel.appendChild(__('Name: '));
+    var nameInput = _('input',[['type','text'],['name','name'],['id','form-name']]);
+    nameInput.bindEvent('change',validateName);
+    nameGroup.appendChild(nameLabel);
+    nameGroup.appendChild(nameInput);
+    form.appendChild(nameGroup);
+
+    //email
+    var emailGroup =_('div',[['class','form-group']]);
+    var emailLabel = _('label',[['for','form-email']]);
+    emailLabel.appendChild(__('Email: '));
+    var emailInput = _('input',[['type','email'],['name','email'],['id','form-email']]);
+    emailInput.bindEvent('change',validateEmail);
+    emailGroup.appendChild(emailLabel);
+    emailGroup.appendChild(emailInput);
+    form.appendChild(emailGroup);
+
+    //comment
+    var commentGroup =_('div',[['class','form-group']]);
+    var commentLabel = _('label',[['for','form-comment']]);
+    commentLabel.appendChild(__('Comment: '));
+    var commentInput = _('textarea',[['name','comment'],['id','form-comment']]);
+    commentGroup.appendChild(commentLabel);
+    commentGroup.appendChild(commentInput);
+    form.appendChild(commentGroup);
+
+
+    var submit = _('input',[['type','submit']]);
+    form.appendChild(submit);
+
+    formDiv.appendChild(form);
+    return formDiv;
+  }
+
+  //validates the name
+
+  validateName = function(){
+    var name = $('#form-name').value;
+    if(name ==''){
+      $('#form-name').style.backgroundColor = '#A10E0E';
+    }
+    else{
+      $('#form-name').style.backgroundColor = '#2AA198';
+    }
+  }
+
+  //validates the email
+
+  validateEmail = function(){
+    var email = $('#form-email').value;
+    if(email.match(/.*@.*\..*/)){
+      $('#form-email').style.backgroundColor = '#2AA198';
+    }
+    else{
+      $('#form-email').style.backgroundColor = '#A10E0E';
+    }
+  }
+
+
+  //swaps the save and clear history functions based on the version
   if(!ie7){
     save = function(){
       localStorage.setItem('dataset',activeDatasetName);
@@ -373,5 +492,12 @@
     }
   }
   else{
-    console.log("IE 7");
+    save = function(){
+      SetCookie('dataset',activeDatasetName);
+      SetCookie('state',JSON.stringify(getSelectedValues()));
+    }
+    clearHistory = function(){
+      DeleteCookie('dataset');
+      DeleteCookie('state');
+    }
   }
