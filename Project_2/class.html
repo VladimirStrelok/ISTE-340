@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>536 p3 ex</title>
+<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+	//now what?
+	/*if they enter an orgId (we will get it next class through a search), we need to find:
+		-What different areas of information the organization has (/Application/Tabs?orgId=x)
+		-then, find each area on demand (each will need it's own call)
+			General
+				Path: ...ESD/{orgId}/General
+			Locations
+				Path: ...ESD/{orgId}/Locations
+			Treatment
+				Path: ...ESD/{orgId}/Treatments
+			Training
+				Path: ...ESD/{orgId}/Training
+			Facilities
+				Path: ...ESD/{orgId}/Facilities
+			Equipment
+				Path: ...ESD/{orgId}/Equipment
+			Physicians
+				Path: ...ESD/{orgId}/Physicians
+			People
+				Path: ...ESD/{orgId}/People
+	*/
+
+	/*
+		getTabs - go out and get the names and number of tabs that I need to build!
+			arg - orgId holds the organizational id of the org I want to know the tabs for
+	*/
+	function getTabs(orgId){
+		//http://simon.ist.rit.edu:8080/Services/resources/ESD/Application/Tabs?orgId=1002
+		$.ajax({
+			type:'get',
+			url:'proxy.php',
+			dataType:'xml',
+			data:{path:'/Application/Tabs?orgId='+orgId},
+			success: function(data){
+				//<data><row><Tab>General</Tab></row><row><Tab>Locations</Tab></row><row><Tab>Treatment</Tab></row><row><Tab>Training</Tab></row><row><Tab>Equipment</Tab></row><row><Tab>People</Tab></row></data>
+				//build a select menu (you can't do this for your project, you must have tabs - but this will get you most of the way)
+				var x='<select onchange="window[\'get\'+$(this).val()]('+orgId+')">';
+				$('Tab',data).each(function(){
+					//output the options
+					x+='<option value="'+$(this).text()+'">'+$(this).text()+'</option>';
+				});
+				$('#dump').html(x+'</select>');
+				getGeneral(orgId);
+			},
+			error:err
+		});
+	}
+
+	function err(event){
+		console.log(event);
+	}
+
+
+	function getGeneral(id){
+		$.ajax({
+			type:'get',
+			url:'proxy.php',
+			dataType:'xml',
+			data:{path:'/'+id+'/General'},
+			success: function(data){
+				var x='<tr><td>Name:</td><td>'+$(data).find('name').text()+'</td></tr>';
+				x+='<tr><td>Description</td><td>'+$(data).find('description').text()+'</td></tr>';
+				x+='<tr><td>Email:</td><td>'+$(data).find('email').text()+'</td></tr>';
+				x+='<tr><td>Website:</td><td>'+$(data).find('website').text()+'</td></tr>';
+				x+='<tr><td>Number of Members:</td><td>'+$(data).find('nummembers').text()+'</td></tr>';
+				x+='<tr><td>Number of Calls:</td><td>'+$(data).find('numcalls').text()+'</td></tr>';
+				$('#output').html(x);
+			},
+			error:err
+		});
+	}
+
+	function getLocations(id){
+		alert('get locations for '+id);
+	}
+
+	function getFacilities(id){
+		alert('get fac for '+id);
+	}
+
+	function getPeople(id){
+		alert('get peps for '+id);
+	}
+
+
+</script>
+</head>
+<body>
+  <h2>ESD Example</h2>Input org Id:
+  <form>
+    <input type="text" id="orgId"/><input type="button" value="find data" onclick="getTabs($('#orgId').val())"/>
+    <div id="dump"></div>
+  	<table id="output"></table>
+  </form>
+  <hr>
+  <!-- ---------------- Will Use soon! ---------------- -->
+  <form style="display:none;">
+    <fieldset>
+      <legend>Search Criteria</legend>
+      <p>Organization Type <select id="orgType" onchange=""></select></p>
+      <p><span id="orgLabel">Organization Name</span> <input id="orgName" type="text"> <em style="color: rgb(104, 129, 162);">*can be partial - "vol" for "Volunteer"</em></p>
+      <p>State <select id="state" onchange="">
+        <option value="">
+          All States
+        </option>
+        <option value="AK">AK</option>
+        <option value="AL">AL</option>
+        <option value="AR">AR</option>
+        <option value="AZ">AZ</option>
+        <option value="CA">CA</option>
+        <option value="CO">CO</option>
+        <option value="CT">CT</option>
+        <option value="DC">DC</option>
+        <option value="DE">DE</option>
+        <option value="FL">FL</option>
+        <option value="GA">GA</option>
+        <option value="HI">HI</option>
+        <option value="IA">IA</option>
+        <option value="ID">ID</option>
+        <option value="IL">IL</option>
+        <option value="IN">IN</option>
+        <option value="KS">KS</option>
+        <option value="KY">KY</option>
+        <option value="LA">LA</option>
+        <option value="MA">MA</option>
+        <option value="MD">MD</option>
+        <option value="ME">ME</option>
+        <option value="MI">MI</option>
+        <option value="MN">MN</option>
+        <option value="MO">MO</option>
+        <option value="MS">MS</option>
+        <option value="MT">MT</option>
+        <option value="NC">NC</option>
+        <option value="ND">ND</option>
+        <option value="NE">NE</option>
+        <option value="NH">NH</option>
+        <option value="NJ">NJ</option>
+        <option value="NM">NM</option>
+        <option value="NV">NV</option>
+        <option value="NY" selected="selected">NY</option>
+        <option value="OH">OH</option>
+        <option value="OK">OK</option>
+        <option value="OR">OR</option>
+        <option value="PA">PA</option>
+        <option value="RI">RI</option>
+        <option value="SC">SC</option>
+        <option value="SD">SD</option>
+        <option value="TN">TN</option>
+        <option value="TX">TX</option>
+        <option value="UT">UT</option>
+        <option value="VA">VA</option>
+        <option value="VT">VT</option>
+        <option value="WA">WA</option>
+        <option value="WI">WI</option>
+        <option value="WV">WV</option>
+        <option value="WY">WY</option>
+      </select> <span id="orgCitySearch"></span></p>
+      <p>County <input id="county" type="text"></p>
+      <p>ZIP Code <input id="zip" type="text"></p>
+      <div style="margin:0 0 0 210px">
+        <input value="Show Results" onclick="checkSearch()" id="btnSearch" class="button" type="button"> <input type="reset" class="button" value="Reset Form" onclick="">
+      </div>
+    </fieldset>
+  </form>
+  <div id="tabelOutput"></div>
+</body>
+</html>
