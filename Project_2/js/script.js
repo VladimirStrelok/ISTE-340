@@ -128,32 +128,32 @@ function getTabs(data){
 						case 'General':
 							var row = $('<div>').addClass('row');
 							var left = $('<div>').addClass('col-sm-6');
-							if($(data).has('name') && $(data).find('name').text() != null)
+							if($(data).find('name').text() != '' && $(data).find('name').text() != null)
 							{
 									$(left).append($('<div>').append($("<label>").text('Name')).append($("<div>").text($(data).find('name').text())))
 							}
-							if($(data).has('description') &&$(data).find('description').text() != 'null')
+							if($(data).find('description').text() != '' &&$(data).find('description').text() != 'null')
 							{
 									$(left).append($('<div>').append($("<label>").text('Description')).append($("<div>").text($(data).find('description').text())))
 							}
-							if($(data).has('website') &&$(data).find('website').text() != 'null')
+							if($(data).find('website').text() != '' &&$(data).find('website').text() != 'null')
 							{
 									$(left).append($('<div>').append($("<label>").text('Website')).append($("<div>").text($(data).find('website').text())))
 							}
-							if($(data).has('email') &&$(data).find('email').text() != 'null')
+							if($(data).find('email').text() != '' && $(data).find('email').text() != 'null')
 							{
 									$(left).append($('<div>').append($("<label>").text('Email')).append($("<div>").text($(data).find('email').text())))
 							}
 							var right = $('<div>').addClass('col-sm-6');
-							if($(data).has('nummembers') && $(data).find('nummembers').text() != 'null')
+							if($(data).find('nummembers').text() != '' && $(data).find('nummembers').text() != 'null')
 							{
 									$(right).append($('<div>').append($("<label>").text('Number of Members')).append($("<div>").text($(data).find('nummembers').text())))
 							}
-							if($(data).has('numcalls') &&$(data).find('numcalls').text() != 'null')
+							if($(data).find('numcalls').text() != '' && $(data).find('numcalls').text() != 'null')
 							{
 									$(right).append($('<div>').append($("<label>").text('Number of Calls')).append($("<div>").text($(data).find('numcalls').text())))
 							}
-							if($(data).has('servicearea') &&$(data).find('servicearea').text() != 'null')
+							if($(data).find('servicearea').text() != '' && $(data).find('servicearea').text() != 'null')
 							{
 									$(right).append($('<div>').append($("<label>").text('Service Area')).append($("<div>").text($(data).find('servicearea').text())))
 							}
@@ -161,7 +161,90 @@ function getTabs(data){
 							$(toReturn).append(row);
 							break;
 						case 'Treatment':
+							if($(data).find('count').text() == 0){
+								$(toReturn).append($('<h3>').append('There are no Treatments at this Organization.'));
+							} else {
+								$(toReturn).append($('<h3>').append('Available Treatments.'));
+								var table = $('<table>').addClass('table table-striped table-bordered');
+								var thead = $('<thead>').append($('<tr>').append($('<th>').append('Type')).append($('<th>').append('Abbreviation')));
+								var tbody = $('<tbody>');
 
+								$(table).append(thead);
+
+								$(table).append(tbody);
+
+								$(data).find('treatment').each(function(){
+									$(tbody).append(
+										$('<tr>').append(
+											$('<td>').append($(this).find('type').text())
+										).append(
+											$('<td>').append($(this).find('abbreviation').text())
+										)
+									)
+								});
+
+								$(toReturn).append(table);
+								$(table).dataTable();
+							}
+							break;
+						case 'Training':
+							if($(data).find('count').text() == 0){
+								$(toReturn).append($('<h3>').append('There is no Training at this Organization.'));
+							} else {
+								$(toReturn).append($('<h3>').append('Available Training.'));
+								var table = $('<table>').addClass('table table-striped table-bordered');
+								var thead = $('<thead>').append($('<tr>').append($('<th>').append('Type')).append($('<th>').append('Abbreviation')));
+								var tbody = $('<tbody>');
+
+								$(table).append(thead);
+
+								$(table).append(tbody);
+
+								$(data).find('training').each(function(){
+									$(tbody).append(
+										$('<tr>').append(
+											$('<td>').append($(this).find('type').text())
+										).append(
+											$('<td>').append($(this).find('abbreviation').text())
+										)
+									)
+								});
+
+								$(toReturn).append(table);
+								$(table).dataTable();
+							}
+							break;
+						case 'Facilities':
+							if($(data).find('count').text() == 0){
+								$(toReturn).append($('<h3>').append('There are no Facilities in this Organization.'));
+							} else {
+								$(toReturn).append($('<h3>').append('Available Facilities.'));
+								var table = $('<table>').addClass('table table-striped table-bordered');
+								var thead = $('<thead>').append($('<tr>')
+								.append($('<th>').append('Type'))
+								.append($('<th>').append('Quantity'))
+								.append($('<th>').append('Description')));
+								var tbody = $('<tbody>');
+
+								$(table).append(thead);
+
+								$(table).append(tbody);
+
+								$(data).find('facility').each(function(){
+									$(tbody).append(
+										$('<tr>').append(
+											$('<td>').append($(this).find('type').text())
+										).append(
+											$('<td>').append($(this).find('quantity').text())
+										).append(
+											$('<td>').append($(this).find('description').text())
+										)
+									)
+								});
+
+								$(toReturn).append(table);
+								$(table).dataTable();
+							}
 							break;
 						default:
 								$(toReturn).append($('<span>').text(org + " " + tabName));
@@ -216,7 +299,6 @@ function buildRow(data){
 }
 
 function getOrgs(){
-	console.log($('#search-form').serialize());
 	$.ajax({
 		type:'get',
 		url:'proxy.php',
