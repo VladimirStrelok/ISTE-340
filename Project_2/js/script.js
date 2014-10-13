@@ -111,7 +111,15 @@ function getTabs(data){
 					tabDiv.append(buildContent($(org).find('OrganizationID').text(),$(this).text()))
 				})
 				$('#display-modal-body').empty().append(tabDiv);
-				$(tabDiv).tabs();
+				$(tabDiv).tabs({
+					show:{
+						effect:"fade"
+					},
+					hide:{
+						effect:"fade"
+
+					}
+				});
 			},
 			error:err
 		});
@@ -238,6 +246,120 @@ function getTabs(data){
 											$('<td>').append($(this).find('quantity').text())
 										).append(
 											$('<td>').append($(this).find('description').text())
+										)
+									)
+								});
+
+								$(toReturn).append(table);
+								$(table).dataTable();
+							}
+							break;
+						case 'Equipment':
+							if($(data).find('count').text() == 0){
+								$(toReturn).append($('<h3>').append('There is no Equipment in this Organization.'));
+							} else {
+								$(toReturn).append($('<h3>').append('Available Equipment.'));
+								var table = $('<table>').addClass('table table-striped table-bordered');
+								var thead = $('<thead>').append($('<tr>')
+								.append($('<th>').append('Type'))
+								.append($('<th>').append('Quantity'))
+								.append($('<th>').append('Description')));
+								var tbody = $('<tbody>');
+
+								$(table).append(thead);
+
+								$(table).append(tbody);
+
+								$(data).find('equipment').each(function(){
+									$(tbody).append(
+										$('<tr>').append(
+											$('<td>').append($(this).find('type').text())
+										).append(
+											$('<td>').append($(this).find('quantity').text())
+										).append(
+											$('<td>').append($(this).find('description').text())
+										)
+									)
+								});
+
+								$(toReturn).append(table);
+								$(table).dataTable();
+							}
+							break;
+						case 'People':
+							if($(data).find('siteCount').text() == 0){
+								$(toReturn).append($('<h3>').append('There are no People in this Organization.'));
+							} else {
+								var select = $('<select>').addClass('form-control').appendTo(toReturn).change(function(){
+									$("#display-modal-people").children().hide();
+									$("#display-modal-people-"+$(this).val()).show('fade');
+								});
+								var peopleDiv = $('<div>').appendTo(toReturn).attr('id','display-modal-people');
+								$(data).find('site').each(function(){
+									$(select).append($('<option>').text($(this).attr('address')).val($(this).attr('siteId')));
+									if($(this).find('personCount').text() == '0'){
+										var siteDiv = $('<div>').attr('id','display-modal-people-'+$(this).attr('siteId')).attr('hidden',true).appendTo(peopleDiv).append($('<h4>').append('There are no people at this location.'));
+									}
+									else{
+										var siteDiv = $('<div>').attr('id','display-modal-people-'+$(this).attr('siteId')).attr('hidden',true).appendTo(peopleDiv);
+										var table = $('<table>').addClass('table table-striped table-bordered');
+										var thead = $('<thead>').append($('<tr>')
+										.append($('<th>').append('Name'))
+										.append($('<th>').append('Role'))
+										.append($('<th>').append('Contact Methods')));
+										var tbody = $('<tbody>');
+
+										$(table).append(thead);
+
+										$(table).append(tbody);
+
+										$(this).find('person').each(function(){
+											$(tbody).append(
+												$('<tr>').append(
+													$('<td>').append($(this).find('honorific').text()+" "+$(this).find('fName').text()+" "+$(this).find('lName').text()+" "+$(this).find('suffix').text())
+												).append(
+													$('<td>').append($(this).find('role').text())
+												).append(
+													$('<td>').append("to do")
+												)
+											)
+										});
+
+										$(siteDiv).append(table);
+										$(table).dataTable();
+									}
+								});
+								$(select).change();
+							}
+							break;
+						case 'Physicians':
+							if($(data).find('count').text() == 0){
+								$(toReturn).append($('<h3>').append('There are no Physicians at this Organization.'));
+							} else {
+								$(toReturn).append($('<h3>').append('Physicians'));
+								var table = $('<table>').addClass('table table-striped table-bordered');
+								var thead = $('<thead>').append(
+									$('<tr>').append(
+										$('<th>').append('Name')
+									).append(
+										$('<th>').append('Phone')
+									).append(
+										$('<th>').append('License')
+									)
+								);
+								var tbody = $('<tbody>');
+
+								$(table).append(thead);
+
+								$(table).append(tbody);
+
+								$(data).find('physician').each(function(){
+									$(tbody).append(
+										$('<tr>').append(
+											$('<td>').append($(this).find('fName').text()+" "+$(this).find('lName').text()+" "+$(this).find('suffix').text())										).append(
+											$('<td>').append($(this).find('phone').text())
+										).append(
+											$('<td>').append($(this).find('license').text())
 										)
 									)
 								});

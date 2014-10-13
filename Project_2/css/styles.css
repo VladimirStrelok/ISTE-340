@@ -7849,3 +7849,6 @@ button.close {
 * html .ui-autocomplete {
   height: 100px;
 }
+#display-modal-people {
+  padding-top: 5px;
+}
