@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title></title>
+  <title>Medical Search</title>
 
-  <!-- Bootstrap -->
+  <link rel="stylesheet" href="bower_components/jqueryui/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css">
   <link href="css/styles.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,17 +39,74 @@
 
   <div class='container'>
     <div class='jumbotron'>
-      <form role='form'>
-        <div class='form-group'>
+      <form role='form' id='search-form'>
+        <h3>Search</h3>
+        <div class='row'>
+          <div class='col-sm-6'>
+            <div class='form-group'>
+              <label for='search-id'>Name</label>
+              <input type='text' class='form-control' name='name' id='search-name'/>
+            </div>
+            <div class='form-group'>
+              <label for='search-id'>Zipcode</label>
+              <input type='text' class='form-control' name='zip' id='search-zip'/>
+            </div>
+            <div class='form-group'>
+              <label for='search-id'>Type</label>
+              <select class='form-control' name='type' id='search-type'>
+                <option value=''>Select a Type</option>
+              </select>
+            </div>
+          </div>
+          <div class='col-sm-6'>
+            <div class='form-group'>
+              <label for='search-id'>City</label>
+              <input type='text' class='form-control' name='town' id='search-city'/>
+            </div>
+            <div class='form-group'>
+              <label for='search-id'>County</label>
+              <input type='text' class='form-control' name='county' id='search-county'/>
+            </div>
+            <div class='form-group'>
+              <label for='search-state'>State</label>
+              <select class='form-control' name='state' id='search-state'>
+                <option value=''>Select a State</option>
+              </select>
+            </div>
+
+          </div>
         </div>
+
+        <button type="submit" class='btn btn-danger pull-right'>Search <i class="fa fa-search"></i></button>
       </form>
     </div>
+    <div id='output'>
+    </div>
   </div>
+
+  <div class="modal fade" id="display-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 id='display-modal-title'class="modal-title">Modal title</h4>
+        </div>
+        <div id='display-modal-body' class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/jqueryui/jquery-ui.min.js"></script>>
+  <script src="bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
   <script src='js/script.js'></script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 define ('HOSTNAME', 'http://simon.ist.rit.edu:8080/Services/resources/ESD');
 if($_POST['path']){
 	//Wont be using this part - just wanted you to see what a post would look like!
