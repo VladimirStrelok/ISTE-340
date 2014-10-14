@@ -1,0 +1,31 @@
+{
+  "name": "Project_2",
+  "version": "0.0.1",
+  "homepage": "https://github.com/VladimirStrelok/ISTE-340",
+  "authors": [
+    "VladimirStrelok <alexander.glica@gmail.com>"
+  ],
+  "description": "Project 2",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "DataTables": "~1.10.3",
+    "bootstrap": "~3.2.0",
+    "fontawesome": "~4.2.0",
+    "jqueryui": "~1.11.1",
+    "less": "~1.7.5",
+    "maplace.js": "~0.1.32",
+    "jquery": "~2.1.1"
+  },
+  "resolutions": {
+    "jquery": "~1.9.0"
+  }
+}

@@ -7852,3 +7852,6 @@ button.close {
 #display-modal-people {
   padding-top: 5px;
 }
+.jumbotron h2 {
+  margin-top: 0px;
+}

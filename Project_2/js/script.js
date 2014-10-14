@@ -400,23 +400,23 @@ function buildTable(data){
 		$(buildRow(this)).appendTo($(table).find('tbody'));
 	})
 	$('#output').empty().append(table).find('table').dataTable();
-}
 
-function buildRow(data){
-	if($(data).find('type').text() == "Physician"){
-		return $('<tr>').append($("<th>"+$(data).find('fName').text()+" "+$(data).find('lName').text()+"</th>"))
-										.append($("<th>"+$(data).find('type').text()+"</th>"))
-										.append($("<th>"+$(data).find('city').text()+"</th>"))
-										.append($("<th>"+$(data).find('State').text()+"</th>"))
-										.append($("<th>"+$(data).find('zip').text()+"</th>"));
+	function buildRow(data){
+		if($(data).find('type').text() == "Physician"){
+			return $('<tr>').append($("<th>"+$(data).find('fName').text()+" "+$(data).find('lName').text()+"</th>"))
+											.append($("<th>"+$(data).find('type').text()+"</th>"))
+											.append($("<th>"+$(data).find('city').text()+"</th>"))
+											.append($("<th>"+$(data).find('State').text()+"</th>"))
+											.append($("<th>"+$(data).find('zip').text()+"</th>"));
 
-	}
-	else{
-		return $('<tr>').append($("<th>"+$(data).find('Name').text()+"</th>"))
-										.append($("<th>"+$(data).find('type').text()+"</th>"))
-										.append($("<th>"+$(data).find('city').text()+"</th>"))
-										.append($("<th>"+$(data).find('State').text()+"</th>"))
-										.append($("<th>"+$(data).find('zip').text()+"</th>")).click(function(){getTabs(data)});
+		}
+		else{
+			return $('<tr>').append($("<th>"+$(data).find('Name').text()+"</th>"))
+											.append($("<th>"+$(data).find('type').text()+"</th>"))
+											.append($("<th>"+$(data).find('city').text()+"</th>"))
+											.append($("<th>"+$(data).find('State').text()+"</th>"))
+											.append($("<th>"+$(data).find('zip').text()+"</th>")).click(function(){getTabs(data)});
+		}
 	}
 }
 
@@ -435,6 +435,11 @@ function getOrgs(){
 
 }
 
+function validate(){
+
+	return true;
+}
+
 function setUp(){
 
 	//gets
@@ -449,7 +454,12 @@ function setUp(){
 		getCounties();
 	});
 
-	$('#search-form').submit(function(){getOrgs(); return false;});
+	$('#search-form').submit(function(){
+		if(validate()){
+			getOrgs();
+		}
+		return false
+	});
 	$('#output-table').DataTable();
 }
 
