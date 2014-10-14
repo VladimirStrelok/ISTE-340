@@ -368,6 +368,12 @@ function getTabs(data){
 								$(table).dataTable();
 							}
 							break;
+						case 'People':
+							if($(data).find('count').text() == 0){
+								$(toReturn).append($('<h3>').append('There are no Physicians at this Organization.'));
+							} else {
+							}
+							break;
 						default:
 								$(toReturn).append($('<span>').text(org + " " + tabName));
 					}
@@ -436,7 +442,7 @@ function getOrgs(){
 }
 
 function validate(){
-
+	//to build
 	return true;
 }
 
