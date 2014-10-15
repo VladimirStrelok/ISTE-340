@@ -7849,9 +7849,13 @@ button.close {
 * html .ui-autocomplete {
   height: 100px;
 }
-#display-modal-people {
+#display-modal-people,
+#display-modal-locations {
   padding-top: 5px;
 }
 .jumbotron h2 {
   margin-top: 0px;
+}
+#gmap {
+  height: 400px;
 }
