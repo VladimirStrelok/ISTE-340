@@ -557,7 +557,8 @@ function getCounties(){
 							$('#output').empty().append(table).find('table').dataTable();
 
 							function buildRow(data){
-								if($(data).find('type').text() == "Physician"){
+								if($(data).find('fName')){
+									console.log('asdf')
 									return $('<tr>').append($("<th>"+$(data).find('fName').text()+" "+$(data).find('lName').text()+"</th>"))
 									.append($("<th>"+$(data).find('type').text()+"</th>"))
 									.append($("<th>"+$(data).find('city').text()+"</th>"))
@@ -604,7 +605,7 @@ function getCounties(){
 													getCounties();
 
 													//set up events
-													$('#search-state').change(function(){
+													$('#search-state').parent().tooltip('State').end().change(function(){
 														getCities();
 														getCounties();
 													});
