@@ -558,7 +558,6 @@ function getCounties(){
 
 							function buildRow(data){
 								if($(data).find('fName')){
-									console.log('asdf')
 									return $('<tr>').append($("<th>"+$(data).find('fName').text()+" "+$(data).find('lName').text()+"</th>"))
 									.append($("<th>"+$(data).find('type').text()+"</th>"))
 									.append($("<th>"+$(data).find('city').text()+"</th>"))
@@ -604,8 +603,15 @@ function getCounties(){
 													getCities();
 													getCounties();
 
+													//set up tooltips
+													$('#search-name').parent().tooltip({tcss:{"backgroundColor":"#3170ce"}});
+													$('#search-zip').parent().tooltip({text:'Zipcode',css:{"backgroundColor":"#0f9d58"}});
+													$('#search-type').parent().tooltip({text:'Orgization Type',css:{"backgroundColor":"#e2252d"}});
+													$('#search-city').parent().tooltip({text:'City<br/>Autocomplete Enabled',css:{"backgroundColor":"#7cbb00","textAlign":"center"}});
+													$('#search-county').parent().tooltip({text:'County',css:{"backgroundColor":"#f65314"}});
+
 													//set up events
-													$('#search-state').parent().tooltip('State').end().change(function(){
+													$('#search-state').parent().tooltip().end().change(function(){
 														getCities();
 														getCounties();
 													});
