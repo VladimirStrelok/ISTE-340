@@ -41,27 +41,27 @@
             "text":"West",
             "question":"Which Team do you like?",
             "answers":{
-              "buffalo_bills":{
-                "text":"Buffalo Bills",
+              "denver_broncos":{
+                "text":"Denver Broncos",
                 "question":"Who is your favorite player",
                 "answers":{
-                  "ron_brooks":{
-                    "text":"Ron Brooks"
+                  "peyton_manning":{
+                    "text":"Peyton Manning"
                   },
-                  "bryce_brown":{
-                    "text":"Bryce Brown"
+                  "wes_welker":{
+                    "text":"Wes Welker"
                   }
                 }
               },
-              "ny_jets":{
-                "text":"New York Jets",
+              "okland_raiders":{
+                "text":"Okland Raiders",
                 "question":"Who is your favorite player",
                 "answers":{
-                  "michael_vick":{
-                    "text":"Michael Vick"
+                  "derek_carr":{
+                    "text":"Derek Carr"
                   },
-                  "chris_johnson":{
-                    "text":"Chris Johnson"
+                  "matt_schaub":{
+                    "text":"Matt Schaub"
                   }
                 }
               }
@@ -77,27 +77,27 @@
             "text":"East",
             "question":"Which Team do you like?",
             "answers":{
-              "buffalo_bills":{
-                "text":"Buffalo Bills",
+              "philadelphia_eagles":{
+                "text":"Philadelphia Eagles",
                 "question":"Who is your favorite player",
                 "answers":{
-                  "ron_brooks":{
-                    "text":"Ron Brooks"
+                  "nick_foles":{
+                    "text":"Nick Foles"
                   },
-                  "bryce_brown":{
-                    "text":"Bryce Brown"
+                  "mark_sanchez":{
+                    "text":"Mark Sanchez"
                   }
                 }
               },
-              "ny_jets":{
-                "text":"New York Jets",
+              "ny_giants":{
+                "text":"New York Giants",
                 "question":"Who is your favorite player",
                 "answers":{
-                  "michael_vick":{
-                    "text":"Michael Vick"
+                  "eli_manning":{
+                    "text":"Eli Manning"
                   },
-                  "chris_johnson":{
-                    "text":"Chris Johnson"
+                  "victor_cruz":{
+                    "text":"Victor Cruz"
                   }
                 }
               }
@@ -107,27 +107,27 @@
             "text":"West",
             "question":"Which Team do you like?",
             "answers":{
-              "buffalo_bills":{
-                "text":"Buffalo Bills",
+              "seattle_seahawks":{
+                "text":"Seattle Seahawks Bills",
                 "question":"Who is your favorite player",
                 "answers":{
-                  "ron_brooks":{
-                    "text":"Ron Brooks"
+                  "russell_wilson":{
+                    "text":"Russell Wilson"
                   },
-                  "bryce_brown":{
-                    "text":"Bryce Brown"
+                  "richard_sherman":{
+                    "text":"Richard Sherman"
                   }
                 }
               },
-              "ny_jets":{
-                "text":"New York Jets",
+              "arizona_cardinals":{
+                "text":"Arizona Cardinals",
                 "question":"Who is your favorite player",
                 "answers":{
-                  "michael_vick":{
-                    "text":"Michael Vick"
+                  "larry_fitzgerald":{
+                    "text":"Larry Fitzgerald"
                   },
-                  "chris_johnson":{
-                    "text":"Chris Johnson"
+                  "carson_palmer":{
+                    "text":"Carson Palmer"
                   }
                 }
               }
