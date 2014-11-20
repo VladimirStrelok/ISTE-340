@@ -82,48 +82,48 @@ function getCounties(){
 					}
 				});
 			},
+		error:err
+	});
+	$('#search-county').autocomplete({
+		minLength: 4,
+		source: availableCounties
+	});
+}
+
+function getTabs(data){
+	$("#display-modal-title").text($(data).find('Name').text());
+	buildTabs(data);
+	$("#display-modal").modal('show');
+	function buildTabs(org){
+	var tabs = [];
+		$.ajax({
+			type:'get',
+			url:'proxy.php',
+			dataType:'xml',
+			data:{path:'/Application/Tabs?orgId='+$(org).find('OrganizationID').text()},
+			success: function(data){
+				var tabDiv = $('<div id="display-modal-tabs"></div>');
+				var ul = $('<ul>')
+				tabDiv.append(ul);
+				$(data).find('row').each(function(){
+					$(ul).append($('<li>').append($('<a href="#'+$(this).text()+'">'+$(this).text()+'</a>')))
+					var tabContent = $('<div id="'+$(this).text()+'"></div>')
+					tabDiv.append(buildContent($(org).find('OrganizationID').text(),$(this).text()))
+				})
+				$('#display-modal-body').empty().append(tabDiv);
+				$(tabDiv).tabs({
+					show:{
+						effect:"fade"
+					},
+					hide:{
+						effect:"fade"
+
+					}
+				});
+			},
 			error:err
 		});
-		$('#search-county').autocomplete({
-			minLength: 4,
-			source: availableCounties
-		});
 	}
-
-	function getTabs(data){
-		$("#display-modal-title").text($(data).find('Name').text());
-		buildTabs(data);
-		$("#display-modal").modal('show');
-		function buildTabs(org){
-			var tabs = [];
-			$.ajax({
-				type:'get',
-				url:'proxy.php',
-				dataType:'xml',
-				data:{path:'/Application/Tabs?orgId='+$(org).find('OrganizationID').text()},
-				success: function(data){
-					var tabDiv = $('<div id="display-modal-tabs"></div>');
-					var ul = $('<ul>')
-					tabDiv.append(ul);
-					$(data).find('row').each(function(){
-						$(ul).append($('<li>').append($('<a href="#'+$(this).text()+'">'+$(this).text()+'</a>')))
-						var tabContent = $('<div id="'+$(this).text()+'"></div>')
-						tabDiv.append(buildContent($(org).find('OrganizationID').text(),$(this).text()))
-					})
-					$('#display-modal-body').empty().append(tabDiv);
-					$(tabDiv).tabs({
-						show:{
-							effect:"fade"
-						},
-						hide:{
-							effect:"fade"
-
-						}
-					});
-				},
-				error:err
-			});
-		}
 		function buildContent(org,tabName){
 			var tabData, toReturn = $('<div id="'+tabName+'"></div>');
 			$.ajax({
@@ -532,99 +532,99 @@ function getCounties(){
 
 						return toReturn;
 					}
-					function getTabDataName(tabName){
-						switch(tabName) {
-							case 'Treatment':
-								return 'Treatments'
-								break;
-								default:
-									return tabName;
-								}
-							}
-						}
+	function getTabDataName(tabName){
+		switch(tabName) {
+			case 'Treatment':
+				return 'Treatments'
+				break;
+			default:
+				return tabName;
+		}
+	}
+}
 
-						function buildTable(data){
-							var table = $('<table>').append(
-								$("<thead>").append(
-									$('<tr>').append($("<th>Name</th>")).append($("<th>Type</th>")).append($("<th>City</th>")).append($("<th>State</th>")).append($("<th>Zipcode</th>"))
-								)
-							).append(
-								$("<tbody>")
-							).addClass('table table-striped table-bordered');
-							$(data).find('row').each(function(){
-								$(buildRow(this)).appendTo($(table).find('tbody'));
-							})
-							$('#output').empty().append(table).find('table').dataTable();
+function buildTable(data){
+	var table = $('<table>').append(
+		$("<thead>").append(
+			$('<tr>').append($("<th>Name</th>")).append($("<th>Type</th>")).append($("<th>City</th>")).append($("<th>State</th>")).append($("<th>Zipcode</th>"))
+		)
+	).append(
+		$("<tbody>")
+	).addClass('table table-striped table-bordered');
+	$(data).find('row').each(function(){
+		$(buildRow(this)).appendTo($(table).find('tbody'));
+	})
+	$('#output').empty().append(table).find('table').dataTable();
 
-							function buildRow(data){
-								if($(data).find('fName')){
-									return $('<tr>').append($("<th>"+$(data).find('fName').text()+" "+$(data).find('lName').text()+"</th>"))
-									.append($("<th>"+$(data).find('type').text()+"</th>"))
-									.append($("<th>"+$(data).find('city').text()+"</th>"))
-									.append($("<th>"+$(data).find('State').text()+"</th>"))
-									.append($("<th>"+$(data).find('zip').text()+"</th>"));
+	function buildRow(data){
+		if($(data).find('fName').length){
+			return $('<tr>').append($("<th>"+$(data).find('fName').text()+" "+$(data).find('lName').text()+"</th>"))
+			.append($("<th>"+$(data).find('type').text()+"</th>"))
+			.append($("<th>"+$(data).find('city').text()+"</th>"))
+			.append($("<th>"+$(data).find('State').text()+"</th>"))
+			.append($("<th>"+$(data).find('zip').text()+"</th>")).click(function(){getTabs(data)});
 
-								}
-								else{
-									return $('<tr>').append($("<th>"+$(data).find('Name').text()+"</th>"))
-									.append($("<th>"+$(data).find('type').text()+"</th>"))
-									.append($("<th>"+$(data).find('city').text()+"</th>"))
-									.append($("<th>"+$(data).find('State').text()+"</th>"))
-									.append($("<th>"+$(data).find('zip').text()+"</th>")).click(function(){getTabs(data)});
-								}
-							}
-						}
+		}
+		else{
+			return $('<tr>').append($("<th>"+$(data).find('Name').text()+"</th>"))
+			.append($("<th>"+$(data).find('type').text()+"</th>"))
+			.append($("<th>"+$(data).find('city').text()+"</th>"))
+			.append($("<th>"+$(data).find('State').text()+"</th>"))
+			.append($("<th>"+$(data).find('zip').text()+"</th>")).click(function(){getTabs(data)});
+		}
+	}
+}
 
-												function getOrgs(){
-													$.ajax({
-														type:'get',
-														url:'proxy.php',
-														dataType:'xml',
-														data:{path:'/Organizations?'+$('#search-form').serialize()},
-														success: function(data){
-															$('#output').append(buildTable(data));
+function getOrgs(){
+	$.ajax({
+		type:'get',
+		url:'proxy.php',
+		dataType:'xml',
+		data:{path:'/Organizations?'+$('#search-form').serialize()},
+		success: function(data){
+			$('#output').append(buildTable(data));
 
-														},
-														error:err
-													});
+		},
+		error:err
+	});
 
-												}
+}
 
-												function validate(){
-													//to build
-													return true;
-												}
+function validate(){
+	//to build
+	return true;
+}
 
-												function setUp(){
+function setUp(){
 
-													//gets
-													getStates();
-													getTypes();
-													getCities();
-													getCounties();
+	//gets
+	getStates();
+	getTypes();
+	getCities();
+	getCounties();
 
-													//set up tooltips
-													$('#search-name').parent().tooltip({tcss:{"backgroundColor":"#3170ce"}});
-													$('#search-zip').parent().tooltip({text:'Zipcode',css:{"backgroundColor":"#0f9d58"}});
-													$('#search-type').parent().tooltip({text:'Orgization Type',css:{"backgroundColor":"#e2252d"}});
-													$('#search-city').parent().tooltip({text:'City<br/>Autocomplete Enabled',css:{"backgroundColor":"#7cbb00","textAlign":"center"}});
-													$('#search-county').parent().tooltip({text:'County',css:{"backgroundColor":"#f65314"}});
+	//set up tooltips
+	$('#search-name').parent().tooltip({tcss:{"backgroundColor":"#3170ce"}});
+	$('#search-zip').parent().tooltip({text:'Zipcode',css:{"backgroundColor":"#0f9d58"}});
+	$('#search-type').parent().tooltip({text:'Orgization Type',css:{"backgroundColor":"#e2252d"}});
+	$('#search-city').parent().tooltip({text:'City<br/>Autocomplete Enabled',css:{"backgroundColor":"#7cbb00","textAlign":"center"}});
+	$('#search-county').parent().tooltip({text:'County',css:{"backgroundColor":"#f65314"}});
 
-													//set up events
-													$('#search-state').parent().tooltip().end().change(function(){
-														getCities();
-														getCounties();
-													});
+	//set up events
+	$('#search-state').parent().tooltip().end().change(function(){
+		getCities();
+		getCounties();
+	});
 
-													$('#search-form').submit(function(){
-														if(validate()){
-															getOrgs();
-														}
-														return false
-													});
-													$('#output-table').DataTable();
-												}
+	$('#search-form').submit(function(){
+		if(validate()){
+			getOrgs();
+		}
+		return false
+	});
+	$('#output-table').DataTable();
+}
 
-												$().ready(function(){
-													setUp();
-												})
+$().ready(function(){
+	setUp();
+})
